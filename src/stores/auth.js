@@ -9,11 +9,16 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!accessToken.value)
 
-  // Reidrata o store a partir do localStorage (chamado no App.vue mounted)
-  function initializeAuth() {
+  // Reidrata o store a partir do localStorage e busca dados do usuário
+  async function initializeAuth() {
     const token = localStorage.getItem(ACCESS_KEY)
-    if (token) {
-      accessToken.value = token
+    if (!token) return
+    accessToken.value = token
+    try {
+      const { data } = await authService.getMe()
+      user.value = data
+    } catch {
+      // Token inválido ou expirado — o interceptor de refresh cuidará disso
     }
   }
 
@@ -22,17 +27,27 @@ export const useAuthStore = defineStore('auth', () => {
     accessToken.value = data.access
     localStorage.setItem(ACCESS_KEY, data.access)
     localStorage.setItem(REFRESH_KEY, data.refresh)
+    // Busca dados do usuário após login
+    const me = await authService.getMe()
+    user.value = me.data
   }
 
   async function register(userData) {
     await authService.register(userData)
   }
 
-  function logout() {
-    user.value = null
-    accessToken.value = null
-    localStorage.removeItem(ACCESS_KEY)
-    localStorage.removeItem(REFRESH_KEY)
+  async function logout() {
+    try {
+      const refresh = localStorage.getItem(REFRESH_KEY)
+      if (refresh) await authService.logout(refresh)
+    } catch {
+      // Ignora erros no blacklist — prossegue com o logout local
+    } finally {
+      user.value = null
+      accessToken.value = null
+      localStorage.removeItem(ACCESS_KEY)
+      localStorage.removeItem(REFRESH_KEY)
+    }
   }
 
   return {
