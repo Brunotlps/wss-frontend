@@ -11,7 +11,7 @@ defineEmits(['select'])
 <template>
   <button
     class="flex w-full items-start gap-3 rounded-lg px-4 py-3 text-left transition-colors"
-    :class="isActive ? 'bg-white/10 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white'"
+    :class="isActive ? 'bg-white/10 text-chalk-100' : 'text-chalk-300 hover:bg-white/5 hover:text-chalk-100'"
     @click="$emit('select', lesson)"
   >
     <!-- Indicador: número ou check -->
@@ -21,8 +21,8 @@ defineEmits(['select'])
         isCompleted
           ? 'bg-green-500 text-white'
           : isActive
-            ? 'border border-white text-white'
-            : 'border border-gray-500 text-gray-400'
+            ? 'border border-chalk-100 text-chalk-100'
+            : 'border border-chalk-500 text-chalk-400'
       "
     >
       <svg
@@ -43,7 +43,7 @@ defineEmits(['select'])
 
     <div class="min-w-0 flex-1">
       <p class="truncate text-sm font-medium leading-snug">{{ lesson.title }}</p>
-      <p class="mt-0.5 text-xs" :class="isActive ? 'text-gray-300' : 'text-gray-500'">
+      <p class="mt-0.5 text-xs" :class="isActive ? 'text-chalk-300' : 'text-chalk-500'">
         {{ lesson.duration_formatted }}
       </p>
     </div>

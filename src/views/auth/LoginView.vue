@@ -47,8 +47,8 @@ const onSubmit = handleSubmit(async (values) => {
   <div class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
     <div class="w-full max-w-sm">
       <div class="mb-8 text-center">
-        <h1 class="text-2xl font-bold text-gray-900">Entrar na WSS</h1>
-        <p class="mt-2 text-sm text-gray-500">Acesse sua conta para continuar aprendendo</p>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-chalk-100">Entrar na NousFlow</h1>
+        <p class="mt-2 text-sm text-gray-500 dark:text-chalk-400">Acesse sua conta para continuar aprendendo</p>
       </div>
 
       <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
@@ -72,7 +72,7 @@ const onSubmit = handleSubmit(async (values) => {
           :error="passwordError"
         />
 
-        <p v-if="globalError" class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
+        <p v-if="globalError" class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
           {{ globalError }}
         </p>
 
@@ -81,9 +81,9 @@ const onSubmit = handleSubmit(async (values) => {
         </AppButton>
       </form>
 
-      <p class="mt-6 text-center text-sm text-gray-500">
+      <p class="mt-6 text-center text-sm text-gray-500 dark:text-chalk-400">
         Não tem conta?
-        <RouterLink :to="{ name: 'register' }" class="font-medium text-gray-900 hover:underline">
+        <RouterLink :to="{ name: 'register' }" class="font-medium text-gray-900 hover:underline dark:text-chalk-100">
           Cadastre-se
         </RouterLink>
       </p>

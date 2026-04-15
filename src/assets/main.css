@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* Dark mode: ativa quando a classe .dark está em um elemento ancestral */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Chalkboard — tema escuro (padrão) */
+  --color-chalk-950: #070d09;
+  --color-chalk-900: #0b0f0d;
+  --color-chalk-800: #131a14;
+  --color-chalk-700: #1d2b1f;
+  --color-chalk-600: #253329;
+  --color-chalk-500: #2e3d31;
+  --color-chalk-400: #7a9c7f;
+  --color-chalk-200: #b8d4bc;
+  --color-chalk-100: #e0ebe2;
+  --color-chalk-50:  #f0f7f2;
+
+  /* Pastel — tema claro */
+  --color-pastel-50:  #f3f7f4;
+  --color-pastel-100: #e5f0e8;
+  --color-pastel-200: #cce0d2;
+  --color-pastel-300: #a8c8b0;
+}

@@ -152,7 +152,7 @@ onUnmounted(() => {
 <template>
   <PageWrapper>
     <div class="mx-auto max-w-lg">
-      <h1 class="mb-8 text-2xl font-bold text-gray-900">Finalizar compra</h1>
+      <h1 class="mb-8 text-2xl font-bold text-gray-900 dark:text-chalk-100">Finalizar compra</h1>
 
       <!-- Loading inicial -->
       <div v-if="status === 'loading'" class="space-y-4 animate-pulse">
@@ -188,7 +188,7 @@ onUnmounted(() => {
       <!-- Formulário de pagamento e estados de polling/processing -->
       <div v-else>
         <!-- Resumo do curso -->
-        <div v-if="course" class="mb-6 flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4">
+        <div v-if="course" class="mb-6 flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 dark:border-chalk-700 dark:bg-chalk-800">
           <img
             v-if="course.thumbnail"
             :src="course.thumbnail"
@@ -196,8 +196,8 @@ onUnmounted(() => {
             class="h-16 w-24 rounded-lg object-cover"
           />
           <div class="flex-1 min-w-0">
-            <p class="font-semibold text-gray-900 truncate">{{ course.title }}</p>
-            <p v-if="course.instructor_name" class="text-sm text-gray-500">{{ course.instructor_name }}</p>
+            <p class="truncate font-semibold text-gray-900 dark:text-chalk-100">{{ course.title }}</p>
+            <p v-if="course.instructor_name" class="text-sm text-gray-500 dark:text-chalk-400">{{ course.instructor_name }}</p>
           </div>
           <p class="text-xl font-bold text-gray-900 shrink-0">
             {{ formatCents(amount) }}
@@ -205,8 +205,8 @@ onUnmounted(() => {
         </div>
 
         <!-- Stripe Card Element -->
-        <div class="mb-6 rounded-xl border border-gray-200 bg-white p-5">
-          <p class="mb-4 text-sm font-medium text-gray-700">Dados do cartão</p>
+        <div class="mb-6 rounded-xl border border-gray-200 bg-white p-5 dark:border-chalk-700 dark:bg-chalk-800">
+          <p class="mb-4 text-sm font-medium text-gray-700 dark:text-chalk-200">Dados do cartão</p>
           <div id="stripe-card-element" class="rounded-md border border-gray-300 px-3 py-3" />
           <p v-if="errorMessage" class="mt-3 text-sm text-red-500">{{ errorMessage }}</p>
         </div>

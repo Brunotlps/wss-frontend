@@ -131,7 +131,7 @@ onUnmounted(() => {
 
 <template>
   <!-- Loading inicial da página -->
-  <div v-if="pageStatus === 'loading'" class="flex min-h-screen items-center justify-center bg-gray-900">
+  <div v-if="pageStatus === 'loading'" class="flex min-h-screen items-center justify-center bg-chalk-900">
     <svg class="h-10 w-10 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -139,15 +139,15 @@ onUnmounted(() => {
   </div>
 
   <!-- Erro ao carregar enrollment -->
-  <div v-else-if="pageStatus === 'error'" class="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-900 text-center">
-    <p class="text-gray-300">{{ errorMessage }}</p>
+  <div v-else-if="pageStatus === 'error'" class="flex min-h-screen flex-col items-center justify-center gap-4 bg-chalk-900 text-center">
+    <p class="text-chalk-200">{{ errorMessage }}</p>
     <AppButton variant="secondary" @click="router.push({ name: 'dashboard' })">
       Voltar para Meus Cursos
     </AppButton>
   </div>
 
   <!-- Player -->
-  <div v-else class="flex bg-gray-900" style="min-height: calc(100vh - 65px)">
+  <div v-else class="flex bg-chalk-900" style="min-height: calc(100vh - 65px)">
     <!-- Área principal: vídeo + info -->
     <div class="flex flex-1 flex-col overflow-y-auto">
       <!-- Player de vídeo -->
@@ -176,10 +176,10 @@ onUnmounted(() => {
       </div>
 
       <!-- Info da aula + navegação -->
-      <div class="bg-white p-6">
+      <div class="bg-chalk-800 p-6">
         <!-- Breadcrumb / título do curso -->
         <button
-          class="mb-4 flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600"
+          class="mb-4 flex items-center gap-1.5 text-sm text-chalk-400 hover:text-chalk-200"
           @click="router.push({ name: 'dashboard' })"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -190,11 +190,11 @@ onUnmounted(() => {
 
         <div v-if="currentLesson" class="space-y-4">
           <div>
-            <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
+            <p class="text-xs font-medium uppercase tracking-wide text-chalk-400">
               Aula {{ currentLesson.order }}
             </p>
-            <h2 class="mt-1 text-xl font-semibold text-gray-900">{{ currentLesson.title }}</h2>
-            <p v-if="currentLesson.description" class="mt-2 text-sm leading-relaxed text-gray-600">
+            <h2 class="mt-1 text-xl font-semibold text-chalk-100">{{ currentLesson.title }}</h2>
+            <p v-if="currentLesson.description" class="mt-2 text-sm leading-relaxed text-chalk-300">
               {{ currentLesson.description }}
             </p>
           </div>
@@ -221,11 +221,11 @@ onUnmounted(() => {
 
     <!-- Sidebar: lista de aulas -->
     <div class="hidden w-80 flex-shrink-0 lg:block">
-      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-gray-700 bg-gray-800">
+      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-chalk-700 bg-chalk-800">
         <!-- Cabeçalho da sidebar -->
-        <div class="border-b border-gray-700 px-4 py-4">
-          <p class="font-medium text-white">Conteúdo do curso</p>
-          <p class="mt-0.5 text-xs text-gray-400">{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</p>
+        <div class="border-b border-chalk-700 px-4 py-4">
+          <p class="font-medium text-chalk-100">Conteúdo do curso</p>
+          <p class="mt-0.5 text-xs text-chalk-400">{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</p>
         </div>
 
         <!-- Lista de aulas (scrollável) -->

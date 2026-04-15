@@ -68,8 +68,8 @@ const onSubmit = handleSubmit(async (values) => {
   <div class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4 py-10">
     <div class="w-full max-w-sm">
       <div class="mb-8 text-center">
-        <h1 class="text-2xl font-bold text-gray-900">Criar conta</h1>
-        <p class="mt-2 text-sm text-gray-500">Comece a aprender hoje mesmo</p>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-chalk-100">Criar conta</h1>
+        <p class="mt-2 text-sm text-gray-500 dark:text-chalk-400">Comece a aprender hoje mesmo</p>
       </div>
 
       <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
@@ -131,7 +131,7 @@ const onSubmit = handleSubmit(async (values) => {
           :error="passwordConfirmError"
         />
 
-        <p v-if="globalError" class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
+        <p v-if="globalError" class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
           {{ globalError }}
         </p>
 
@@ -140,9 +140,9 @@ const onSubmit = handleSubmit(async (values) => {
         </AppButton>
       </form>
 
-      <p class="mt-6 text-center text-sm text-gray-500">
+      <p class="mt-6 text-center text-sm text-gray-500 dark:text-chalk-400">
         Já tem conta?
-        <RouterLink :to="{ name: 'login' }" class="font-medium text-gray-900 hover:underline">
+        <RouterLink :to="{ name: 'login' }" class="font-medium text-gray-900 hover:underline dark:text-chalk-100">
           Entrar
         </RouterLink>
       </p>
