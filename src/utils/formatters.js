@@ -6,6 +6,11 @@ export function formatCurrency(value) {
   }).format(value)
 }
 
+// Converte centavos (ex: 19900) para string formatada (ex: R$ 199,00)
+export function formatCents(cents) {
+  return formatCurrency(cents / 100)
+}
+
 export function formatDuration(totalMinutes) {
   if (!totalMinutes) return null
   const h = Math.floor(totalMinutes / 60)
