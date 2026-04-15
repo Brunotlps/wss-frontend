@@ -14,18 +14,29 @@ const router = useRouter()
 const auth = useAuthStore()
 
 const schema = yup.object({
-  name: yup.string().min(2, 'Nome muito curto').required('Nome obrigatório'),
-  email: yup.string().email('E-mail inválido').required('E-mail obrigatório'),
-  password: yup
+  first_name: yup.string().required('Nome obrigatório'),
+  last_name: yup.string().required('Sobrenome obrigatório'),
+  username: yup
     .string()
-    .min(8, 'A senha deve ter no mínimo 8 caracteres')
-    .required('Senha obrigatória'),
+    .min(3, 'Mínimo 3 caracteres')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Apenas letras, números e _')
+    .required('Nome de usuário obrigatório'),
+  email: yup.string().email('E-mail inválido').required('E-mail obrigatório'),
+  password: yup.string().min(8, 'Mínimo 8 caracteres').required('Senha obrigatória'),
+  password_confirm: yup
+    .string()
+    .oneOf([yup.ref('password')], 'As senhas não coincidem')
+    .required('Confirmação obrigatória'),
 })
 
 const { handleSubmit, isSubmitting, setErrors } = useForm({ validationSchema: schema })
-const { value: name, errorMessage: nameError } = useField('name')
+const { value: first_name, errorMessage: firstNameError } = useField('first_name')
+const { value: last_name, errorMessage: lastNameError } = useField('last_name')
+const { value: username, errorMessage: usernameError } = useField('username')
 const { value: email, errorMessage: emailError } = useField('email')
 const { value: password, errorMessage: passwordError } = useField('password')
+const { value: password_confirm, errorMessage: passwordConfirmError } =
+  useField('password_confirm')
 
 const globalError = ref('')
 
@@ -36,7 +47,14 @@ const onSubmit = handleSubmit(async (values) => {
     toast.success('Conta criada! Faça login para continuar.')
     router.push({ name: 'login' })
   } catch (error) {
-    const fieldErrors = extractFieldErrors(error, ['name', 'email', 'password'])
+    const fieldErrors = extractFieldErrors(error, [
+      'first_name',
+      'last_name',
+      'username',
+      'email',
+      'password',
+      'password_confirm',
+    ])
     if (Object.keys(fieldErrors).length) {
       setErrors(fieldErrors)
     } else {
@@ -47,7 +65,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
+  <div class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4 py-10">
     <div class="w-full max-w-sm">
       <div class="mb-8 text-center">
         <h1 class="text-2xl font-bold text-gray-900">Criar conta</h1>
@@ -55,13 +73,32 @@ const onSubmit = handleSubmit(async (values) => {
       </div>
 
       <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
+        <div class="grid grid-cols-2 gap-3">
+          <AppInput
+            id="first_name"
+            v-model="first_name"
+            label="Nome"
+            placeholder="Bruno"
+            autocomplete="given-name"
+            :error="firstNameError"
+          />
+          <AppInput
+            id="last_name"
+            v-model="last_name"
+            label="Sobrenome"
+            placeholder="Teixeira"
+            autocomplete="family-name"
+            :error="lastNameError"
+          />
+        </div>
+
         <AppInput
-          id="name"
-          v-model="name"
-          label="Nome completo"
-          placeholder="Seu nome"
-          autocomplete="name"
-          :error="nameError"
+          id="username"
+          v-model="username"
+          label="Nome de usuário"
+          placeholder="brunoteixeira"
+          autocomplete="username"
+          :error="usernameError"
         />
 
         <AppInput
@@ -82,6 +119,16 @@ const onSubmit = handleSubmit(async (values) => {
           placeholder="Mínimo 8 caracteres"
           autocomplete="new-password"
           :error="passwordError"
+        />
+
+        <AppInput
+          id="password_confirm"
+          v-model="password_confirm"
+          label="Confirmar senha"
+          type="password"
+          placeholder="Repita a senha"
+          autocomplete="new-password"
+          :error="passwordConfirmError"
         />
 
         <p v-if="globalError" class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">

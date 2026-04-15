@@ -2,7 +2,7 @@ import api from './api.js'
 
 export const authService = {
   login(credentials) {
-    return api.post('/api/auth/login/', credentials)
+    return api.post('/api/auth/token/', credentials)
   },
 
   register(data) {
@@ -11,5 +11,13 @@ export const authService = {
 
   refreshToken(refresh) {
     return api.post('/api/auth/token/refresh/', { refresh })
+  },
+
+  logout(refresh) {
+    return api.post('/api/auth/token/blacklist/', { refresh })
+  },
+
+  getMe() {
+    return api.get('/api/users/me/')
   },
 }
