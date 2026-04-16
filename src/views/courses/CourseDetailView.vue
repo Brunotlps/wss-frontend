@@ -5,6 +5,7 @@ import { useCoursesStore } from '@/stores/courses.js'
 import { useAuthStore } from '@/stores/auth.js'
 import { formatCurrency, formatDuration } from '@/utils/formatters.js'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
+import AppButton from '@/components/ui/AppButton.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -28,25 +29,20 @@ function handleBuy() {
   <PageWrapper>
     <!-- Skeleton de carregamento -->
     <div v-if="store.loading" class="space-y-6 animate-pulse">
-      <div class="h-8 w-2/3 rounded bg-gray-200" />
-      <div class="h-4 w-1/3 rounded bg-gray-200" />
-      <div class="aspect-video w-full rounded-xl bg-gray-200" />
+      <div class="h-8 w-2/3 rounded bg-gray-200 dark:bg-chalk-700" />
+      <div class="h-4 w-1/3 rounded bg-gray-200 dark:bg-chalk-700" />
+      <div class="aspect-video w-full rounded-xl bg-gray-200 dark:bg-chalk-700" />
       <div class="space-y-2">
-        <div class="h-4 w-full rounded bg-gray-200" />
-        <div class="h-4 w-5/6 rounded bg-gray-200" />
-        <div class="h-4 w-4/6 rounded bg-gray-200" />
+        <div class="h-4 w-full rounded bg-gray-200 dark:bg-chalk-700" />
+        <div class="h-4 w-5/6 rounded bg-gray-200 dark:bg-chalk-700" />
+        <div class="h-4 w-4/6 rounded bg-gray-200 dark:bg-chalk-700" />
       </div>
     </div>
 
     <!-- Erro -->
     <div v-else-if="store.error" class="flex flex-col items-center gap-3 py-20 text-center">
       <p class="text-gray-500 dark:text-chalk-400">{{ store.error }}</p>
-      <button
-        class="rounded-md bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-2 text-sm text-white hover:opacity-90"
-        @click="store.fetchCourse(route.params.id)"
-      >
-        Tentar novamente
-      </button>
+      <AppButton @click="store.fetchCourse(route.params.id)">Tentar novamente</AppButton>
     </div>
 
     <!-- Conteúdo do curso -->
@@ -152,12 +148,7 @@ function handleBuy() {
               {{ formatCurrency(store.currentCourse.price) }}
             </div>
 
-            <button
-              class="w-full rounded-md bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-3 font-medium text-white transition-opacity hover:opacity-90"
-              @click="handleBuy"
-            >
-              Comprar agora
-            </button>
+            <AppButton full @click="handleBuy">Comprar agora</AppButton>
 
             <div v-if="store.currentCourse.modules?.length || store.currentCourse.lessons?.length" class="mt-4 space-y-2 text-sm text-gray-500 dark:text-chalk-400">
               <p class="flex items-center gap-2">

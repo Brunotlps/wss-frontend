@@ -175,6 +175,29 @@ onUnmounted(() => {
         />
       </div>
 
+      <!-- Lista de aulas colapsável (mobile only) -->
+      <details class="lg:hidden border-t border-chalk-700 bg-chalk-800">
+        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-chalk-100 [&::-webkit-details-marker]:hidden">
+          <span class="font-medium">Conteúdo do curso</span>
+          <div class="flex items-center gap-2 text-xs text-chalk-400">
+            <span>{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform details-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </summary>
+        <div class="py-2">
+          <LessonItem
+            v-for="lesson in lessons"
+            :key="lesson.id"
+            :lesson="lesson"
+            :is-active="currentLesson?.id === lesson.id"
+            :is-completed="completedLessonIds.has(lesson.id)"
+            @select="selectLesson"
+          />
+        </div>
+      </details>
+
       <!-- Info da aula + navegação -->
       <div class="bg-chalk-800 p-6">
         <!-- Breadcrumb / título do curso -->

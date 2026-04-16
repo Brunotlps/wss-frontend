@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useCoursesStore } from '@/stores/courses.js'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
+import AppButton from '@/components/ui/AppButton.vue'
 import CourseCard from '@/components/course/CourseCard.vue'
 import CourseCardSkeleton from '@/components/course/CourseCardSkeleton.vue'
 
@@ -27,12 +28,7 @@ onMounted(() => {
     <!-- Erro -->
     <div v-else-if="store.error" class="flex flex-col items-center gap-3 py-20 text-center">
       <p class="text-gray-500 dark:text-chalk-400">{{ store.error }}</p>
-      <button
-        class="rounded-md bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-2 text-sm text-white hover:opacity-90"
-        @click="store.fetchCourses()"
-      >
-        Tentar novamente
-      </button>
+      <AppButton @click="store.fetchCourses()">Tentar novamente</AppButton>
     </div>
 
     <!-- Estado vazio -->
