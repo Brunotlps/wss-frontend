@@ -16,14 +16,31 @@ function handleLogout() {
 <template>
   <header class="border-b border-gray-200 bg-white transition-colors duration-300 dark:border-chalk-700 dark:bg-chalk-950">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-      <!-- Logo NousFlow -->
-      <RouterLink :to="{ name: 'course-list' }" class="select-none">
+      <!-- Logo NousFlow → Sobre nós -->
+      <RouterLink :to="{ name: 'about' }" class="select-none">
         <span class="bg-gradient-to-r from-emerald-600 via-teal-400 to-emerald-400 bg-clip-text text-xl font-bold tracking-widest text-transparent uppercase">
           NousFlow
         </span>
       </RouterLink>
 
       <nav class="flex items-center gap-4">
+        <!-- Links públicos (sempre visíveis) -->
+        <RouterLink
+          :to="{ name: 'course-list' }"
+          class="text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-chalk-400 dark:hover:text-chalk-100"
+        >
+          Cursos
+        </RouterLink>
+        <RouterLink
+          :to="{ name: 'about' }"
+          class="text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-chalk-400 dark:hover:text-chalk-100"
+        >
+          Sobre nós
+        </RouterLink>
+
+        <!-- Separador visual -->
+        <span class="h-4 w-px bg-gray-200 dark:bg-chalk-700" />
+
         <template v-if="auth.isAuthenticated">
           <RouterLink
             :to="{ name: 'dashboard' }"

@@ -11,6 +11,11 @@ const router = createRouter({
       component: () => import('@/views/courses/CourseListView.vue'),
     },
     {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/about/AboutView.vue'),
+    },
+    {
       path: '/courses/:id',
       name: 'course-detail',
       component: () => import('@/views/courses/CourseDetailView.vue'),
@@ -47,7 +52,7 @@ const router = createRouter({
       path: '/learn/:enrollmentId',
       name: 'player',
       component: () => import('@/views/learn/PlayerView.vue'),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, hideFooter: true },
     },
     {
       path: '/certificates',
