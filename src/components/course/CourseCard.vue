@@ -59,7 +59,7 @@ function handleBuy() {
           class="rounded-md bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
           @click="handleBuy"
         >
-          Comprar
+          Adquirir
         </button>
       </div>
     </div>

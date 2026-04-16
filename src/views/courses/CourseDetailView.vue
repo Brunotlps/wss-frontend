@@ -1,9 +1,12 @@
 <script setup>
-import { onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCoursesStore } from '@/stores/courses.js'
 import { useAuthStore } from '@/stores/auth.js'
+import { enrollmentService } from '@/services/enrollmentService.js'
 import { formatCurrency, formatDuration } from '@/utils/formatters.js'
+import { parseDRFError } from '@/utils/errors.js'
+import { toast } from 'vue-sonner'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 
@@ -19,6 +22,10 @@ const DIFFICULTY_COLORS = {
   ADV: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400',
 }
 
+const enrolling = ref(false)
+
+const isFree = computed(() => Number(store.currentCourse?.price) === 0)
+
 onMounted(() => {
   store.fetchCourse(route.params.id)
 })
@@ -28,6 +35,29 @@ function handleBuy() {
     router.push({ name: 'checkout', params: { courseId: route.params.id } })
   } else {
     router.push({ name: 'login', query: { redirect: `/checkout/${route.params.id}` } })
+  }
+}
+
+async function handleEnroll() {
+  if (!auth.isAuthenticated) {
+    router.push({ name: 'login', query: { redirect: `/courses/${route.params.id}` } })
+    return
+  }
+  enrolling.value = true
+  try {
+    const { data } = await enrollmentService.createEnrollment(Number(route.params.id))
+    toast.success('Matrícula realizada! Bom aprendizado.')
+    router.push({ name: 'player', params: { enrollmentId: data.id } })
+  } catch (err) {
+    const detail = err.response?.data?.detail ?? ''
+    if (err.response?.status === 400 && detail.toLowerCase().includes('matriculado')) {
+      toast.info('Você já está matriculado neste curso.')
+      router.push({ name: 'dashboard' })
+    } else {
+      toast.error(parseDRFError(err))
+    }
+  } finally {
+    enrolling.value = false
   }
 }
 
@@ -190,10 +220,19 @@ function totalLessons(course) {
             <!-- Preço -->
             <div class="p-6">
               <div class="text-3xl font-bold text-gray-900 dark:text-chalk-100">
-                {{ formatCurrency(store.currentCourse.price) }}
+                {{ isFree ? 'Gratuito' : formatCurrency(store.currentCourse.price) }}
               </div>
               <div class="mt-4">
-                <AppButton full @click="handleBuy">Comprar agora</AppButton>
+                <AppButton
+                  v-if="isFree"
+                  full
+                  :loading="enrolling"
+                  :disabled="enrolling"
+                  @click="handleEnroll"
+                >
+                  {{ enrolling ? 'Matriculando...' : 'Matricular-se gratuitamente' }}
+                </AppButton>
+                <AppButton v-else full @click="handleBuy">Adquirir agora</AppButton>
               </div>
             </div>
 

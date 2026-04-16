@@ -8,4 +8,8 @@ export const enrollmentService = {
   getEnrollment(id) {
     return api.get(`/api/enrollments/${id}/`)
   },
+
+  createEnrollment(courseId) {
+    return api.post('/api/enrollments/', { course_id: courseId })
+  },
 }
