@@ -156,14 +156,14 @@ onUnmounted(() => {
 
       <!-- Loading inicial -->
       <div v-if="status === 'loading'" class="space-y-4 animate-pulse">
-        <div class="h-6 w-2/3 rounded bg-gray-200" />
-        <div class="h-40 w-full rounded-xl bg-gray-200" />
-        <div class="h-12 w-full rounded-md bg-gray-200" />
+        <div class="h-6 w-2/3 rounded bg-gray-200 dark:bg-chalk-700" />
+        <div class="h-40 w-full rounded-xl bg-gray-200 dark:bg-chalk-700" />
+        <div class="h-12 w-full rounded-md bg-gray-200 dark:bg-chalk-700" />
       </div>
 
       <!-- Erro de inicialização -->
       <div v-else-if="status === 'error'" class="flex flex-col items-center gap-4 py-10 text-center">
-        <p class="text-gray-600">{{ errorMessage }}</p>
+        <p class="text-gray-600 dark:text-chalk-300">{{ errorMessage }}</p>
         <AppButton variant="secondary" @click="router.push({ name: 'course-list' })">
           Voltar ao catálogo
         </AppButton>
@@ -177,8 +177,8 @@ onUnmounted(() => {
           </svg>
         </div>
         <div>
-          <p class="font-semibold text-gray-800">Pagamento recebido!</p>
-          <p class="mt-1 text-sm text-gray-500">
+          <p class="font-semibold text-gray-800 dark:text-chalk-100">Pagamento recebido!</p>
+          <p class="mt-1 text-sm text-gray-500 dark:text-chalk-400">
             Sua matrícula está sendo processada. Verifique em Meus Cursos em breve.
           </p>
         </div>
@@ -199,7 +199,7 @@ onUnmounted(() => {
             <p class="truncate font-semibold text-gray-900 dark:text-chalk-100">{{ course.title }}</p>
             <p v-if="course.instructor_name" class="text-sm text-gray-500 dark:text-chalk-400">{{ course.instructor_name }}</p>
           </div>
-          <p class="text-xl font-bold text-gray-900 shrink-0">
+          <p class="text-xl font-bold text-gray-900 shrink-0 dark:text-chalk-100">
             {{ formatCents(amount) }}
           </p>
         </div>
@@ -207,7 +207,7 @@ onUnmounted(() => {
         <!-- Stripe Card Element -->
         <div class="mb-6 rounded-xl border border-gray-200 bg-white p-5 dark:border-chalk-700 dark:bg-chalk-800">
           <p class="mb-4 text-sm font-medium text-gray-700 dark:text-chalk-200">Dados do cartão</p>
-          <div id="stripe-card-element" class="rounded-md border border-gray-300 px-3 py-3" />
+          <div id="stripe-card-element" class="rounded-md border border-gray-300 px-3 py-3 dark:border-chalk-600" />
           <p v-if="errorMessage" class="mt-3 text-sm text-red-500">{{ errorMessage }}</p>
         </div>
 
@@ -243,7 +243,7 @@ onUnmounted(() => {
           }}
         </AppButton>
 
-        <p class="mt-4 text-center text-xs text-gray-400">
+        <p class="mt-4 text-center text-xs text-gray-400 dark:text-chalk-500">
           Pagamento seguro processado pelo Stripe. Seus dados não são armazenados.
         </p>
       </div>

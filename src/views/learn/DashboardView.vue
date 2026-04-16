@@ -18,7 +18,8 @@ const DIFFICULTY_LABELS = { BEG: 'Iniciante', INT: 'IntermediÃ¡rio', ADV: 'AvanÃ
 onMounted(async () => {
   try {
     const { data } = await enrollmentService.getEnrollments()
-    enrollments.value = Array.isArray(data) ? data : (data.results ?? [])
+    const list = Array.isArray(data) ? data : (data.results ?? [])
+    enrollments.value = list.filter((e) => e.is_active)
   } catch (err) {
     error.value = parseDRFError(err)
   } finally {
