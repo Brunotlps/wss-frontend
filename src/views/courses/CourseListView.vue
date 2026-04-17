@@ -49,7 +49,7 @@ onMounted(() => {
     <!-- Filtros -->
     <div v-if="!store.loading && !store.error && store.courses.length > 0" class="mb-6 space-y-3">
       <!-- Busca por texto -->
-      <div class="relative max-w-sm">
+      <div class="relative w-full sm:max-w-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-chalk-500"
