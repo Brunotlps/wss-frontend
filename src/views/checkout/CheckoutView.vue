@@ -11,10 +11,12 @@ import { formatCents } from '@/utils/formatters.js'
 import { parseDRFError } from '@/utils/errors.js'
 import AppButton from '@/components/ui/AppButton.vue'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
+import { useTheme } from '@/composables/useTheme.js'
 
 const route = useRoute()
 const router = useRouter()
 const courseId = Number(route.params.courseId)
+const { isDark } = useTheme()
 
 // — Estado da máquina de estados do checkout
 // loading | ready | processing | polling | timeout | error
@@ -84,9 +86,9 @@ async function mountStripeElements() {
     style: {
       base: {
         fontSize: '16px',
-        color: '#111827',
+        color: isDark.value ? '#e0ebe2' : '#111827',
         fontFamily: 'ui-sans-serif, system-ui, sans-serif',
-        '::placeholder': { color: '#9ca3af' },
+        '::placeholder': { color: isDark.value ? '#7a9c7f' : '#9ca3af' },
       },
       invalid: { color: '#ef4444' },
     },
