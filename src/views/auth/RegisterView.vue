@@ -44,7 +44,7 @@ const onSubmit = handleSubmit(async (values) => {
   globalError.value = ''
   try {
     await auth.register(values)
-    toast.success('Conta criada! Faça login para continuar.')
+    toast.success('Conta criada com sucesso!', { description: 'Faça login para começar a aprender.' })
     router.push({ name: 'login' })
   } catch (error) {
     const fieldErrors = extractFieldErrors(error, [

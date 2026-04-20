@@ -46,12 +46,12 @@ async function handleEnroll() {
   enrolling.value = true
   try {
     const { data } = await enrollmentService.createEnrollment(Number(route.params.id))
-    toast.success('Matrícula realizada! Bom aprendizado.')
+    toast.success('Matrícula realizada!', { description: 'Bom aprendizado. Seu progresso é salvo automaticamente.' })
     router.push({ name: 'player', params: { enrollmentId: data.id } })
   } catch (err) {
     const detail = err.response?.data?.detail ?? ''
     if (err.response?.status === 400 && detail.toLowerCase().includes('matriculado')) {
-      toast.info('Você já está matriculado neste curso.')
+      toast.info('Você já está matriculado', { description: 'Redirecionando para Meus Cursos.' })
       router.push({ name: 'dashboard' })
     } else {
       toast.error(parseDRFError(err))

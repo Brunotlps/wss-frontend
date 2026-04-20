@@ -60,7 +60,7 @@ async function initCheckout() {
     const detail = typeof data?.detail === 'string' ? data.detail : ''
 
     if (error.response?.status === 400 && detail.toLowerCase().includes('matriculado')) {
-      toast.info('Você já está matriculado neste curso.')
+      toast.info('Você já está matriculado', { description: 'Redirecionando para o dashboard.' })
       router.push({ name: 'dashboard' })
       return
     }
@@ -116,7 +116,7 @@ async function handleSubmit() {
     const enrollment = await pollForEnrollment()
 
     if (enrollment) {
-      toast.success('Matrícula confirmada! Bom aprendizado.')
+      toast.success('Matrícula confirmada!', { description: 'Bom aprendizado. Seu progresso é salvo automaticamente.' })
       router.push({ name: 'player', params: { enrollmentId: enrollment.id } })
     } else {
       status.value = 'timeout'

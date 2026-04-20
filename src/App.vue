@@ -4,13 +4,14 @@ import { useRoute } from 'vue-router'
 import { Toaster } from 'vue-sonner'
 import { useAuthStore } from '@/stores/auth.js'
 import { useTheme } from '@/composables/useTheme.js'
+
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import api from '@/services/api.js'
 
 const auth = useAuthStore()
 const route = useRoute()
-useTheme() // inicializa e aplica a classe .dark no <html>
+const { isDark } = useTheme()
 
 const backendOffline = ref(false)
 
@@ -25,7 +26,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Toaster position="top-right" rich-colors />
+  <Toaster position="top-right" rich-colors close-button :theme="isDark ? 'dark' : 'light'" />
   <div class="flex min-h-screen flex-col bg-pastel-50 transition-colors duration-300 dark:bg-chalk-900">
     <div
       v-if="backendOffline"
