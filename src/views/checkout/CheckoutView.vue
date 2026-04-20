@@ -214,7 +214,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Estado: processando pagamento -->
-        <div v-if="status === 'processing'" class="mb-4 flex items-center justify-center gap-3 rounded-lg bg-blue-50 px-4 py-3 text-sm text-blue-700">
+        <div v-if="status === 'processing'" class="mb-4 flex items-center justify-center gap-3 rounded-lg bg-blue-50 px-4 py-3 text-sm text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
           <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -223,7 +223,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Estado: aguardando matrícula (polling) -->
-        <div v-else-if="status === 'polling'" class="mb-4 flex items-center justify-center gap-3 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
+        <div v-else-if="status === 'polling'" class="mb-4 flex items-center justify-center gap-3 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700 dark:bg-green-900/30 dark:text-green-300">
           <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
