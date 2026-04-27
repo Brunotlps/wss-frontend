@@ -197,7 +197,7 @@ function toggleFaq(index) {
 
         <!-- Carrossel de fotos -->
         <div class="relative">
-          <div class="relative aspect-square max-w-md mx-auto overflow-hidden rounded-2xl shadow-2xl bg-navy-800">
+          <div class="relative max-w-lg mx-auto overflow-hidden rounded-2xl shadow-2xl bg-navy-900 aspect-[3/4] sm:aspect-[4/5]">
             <!-- Fotos -->
             <TransitionGroup name="carousel">
               <img
@@ -206,7 +206,7 @@ function toggleFaq(index) {
                 :key="photo"
                 :src="photo"
                 alt="Dupla de Milheiros"
-                class="absolute inset-0 h-full w-full object-cover"
+                class="absolute inset-0 h-full w-full object-contain"
               />
             </TransitionGroup>
 
