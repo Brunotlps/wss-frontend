@@ -189,28 +189,6 @@ function toggleFaq(index) {
   </section>
 
   <!-- ══════════════════════════════════════════════
-       STATS BAR
-  ══════════════════════════════════════════════ -->
-  <section class="border-y border-cream-200 bg-white py-10 dark:border-navy-700 dark:bg-navy-800">
-    <div class="mx-auto max-w-4xl px-4">
-      <div class="grid grid-cols-3 gap-6 text-center">
-        <div>
-          <p class="text-3xl font-bold text-navy-900 dark:text-gold-400">500+</p>
-          <p class="mt-1 text-sm text-gray-500 dark:text-navy-300">Alunos Transformados</p>
-        </div>
-        <div>
-          <p class="text-3xl font-bold text-navy-900 dark:text-gold-400">15+</p>
-          <p class="mt-1 text-sm text-gray-500 dark:text-navy-300">Cursos Disponíveis</p>
-        </div>
-        <div>
-          <p class="text-3xl font-bold text-navy-900 dark:text-gold-400">4.9★</p>
-          <p class="mt-1 text-sm text-gray-500 dark:text-navy-300">Avaliação Média</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════
        QUEM SOMOS
   ══════════════════════════════════════════════ -->
   <section id="quem-somos" class="bg-cream-100 py-20 dark:bg-navy-900">
