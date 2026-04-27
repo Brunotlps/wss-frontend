@@ -28,44 +28,44 @@ onMounted(async () => {
 <template>
   <PageWrapper>
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-chalk-100">Meus Certificados</h1>
-      <p class="mt-1 text-sm text-gray-500 dark:text-chalk-400">Seus certificados de conclusão</p>
+      <h1 class="text-2xl font-bold text-navy-900 dark:text-cream-50">Meus Certificados</h1>
+      <p class="mt-1 text-sm text-gray-500 dark:text-navy-300">Seus certificados de conclusão</p>
     </div>
 
     <!-- Skeletons -->
     <div v-if="loading" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div v-for="n in 3" :key="n" class="animate-pulse rounded-xl border border-gray-200 bg-white p-5 dark:border-chalk-700 dark:bg-chalk-800">
+      <div v-for="n in 3" :key="n" class="animate-pulse rounded-xl border border-cream-200 bg-white p-5 dark:border-navy-700 dark:bg-navy-800">
         <div class="mb-4 flex items-center gap-3">
-          <div class="h-10 w-10 rounded-lg bg-gray-200 dark:bg-chalk-700" />
+          <div class="h-10 w-10 rounded-lg bg-cream-200 dark:bg-navy-700" />
           <div class="flex-1 space-y-2">
-            <div class="h-4 w-3/4 rounded bg-gray-200 dark:bg-chalk-700" />
-            <div class="h-3 w-1/2 rounded bg-gray-200 dark:bg-chalk-700" />
+            <div class="h-4 w-3/4 rounded bg-cream-200 dark:bg-navy-700" />
+            <div class="h-3 w-1/2 rounded bg-cream-200 dark:bg-navy-700" />
           </div>
         </div>
-        <div class="space-y-2 border-t border-gray-100 pt-3 dark:border-chalk-700">
-          <div class="h-3 w-2/3 rounded bg-gray-200 dark:bg-chalk-700" />
-          <div class="h-3 w-1/2 rounded bg-gray-200 dark:bg-chalk-700" />
+        <div class="space-y-2 border-t border-cream-200 pt-3 dark:border-navy-700">
+          <div class="h-3 w-2/3 rounded bg-cream-200 dark:bg-navy-700" />
+          <div class="h-3 w-1/2 rounded bg-cream-200 dark:bg-navy-700" />
         </div>
-        <div class="mt-4 h-9 rounded-md bg-gray-200 dark:bg-chalk-700" />
+        <div class="mt-4 h-9 rounded-md bg-cream-200 dark:bg-navy-700" />
       </div>
     </div>
 
     <!-- Erro -->
     <div v-else-if="error" class="flex flex-col items-center gap-3 py-20 text-center">
-      <p class="text-gray-500 dark:text-chalk-400">{{ error }}</p>
+      <p class="text-gray-500 dark:text-navy-300">{{ error }}</p>
       <AppButton variant="secondary" @click="router.go(0)">Tentar novamente</AppButton>
     </div>
 
     <!-- Estado vazio -->
     <div v-else-if="certificates.length === 0" class="flex flex-col items-center gap-4 py-20 text-center">
-      <div class="rounded-full bg-gray-100 p-6 dark:bg-chalk-700">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400 dark:text-chalk-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div class="rounded-full bg-gold-100 p-6 dark:bg-navy-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gold-600 dark:text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
         </svg>
       </div>
       <div>
-        <p class="text-lg font-medium text-gray-800 dark:text-chalk-100">Você ainda não tem certificados</p>
-        <p class="mt-1 text-sm text-gray-500 dark:text-chalk-400">Conclua um curso para receber seu certificado</p>
+        <p class="text-lg font-medium text-navy-900 dark:text-cream-50">Você ainda não tem certificados</p>
+        <p class="mt-1 text-sm text-gray-500 dark:text-navy-300">Conclua um curso para receber seu certificado</p>
       </div>
       <AppButton @click="router.push({ name: 'dashboard' })">Ver meus cursos</AppButton>
     </div>

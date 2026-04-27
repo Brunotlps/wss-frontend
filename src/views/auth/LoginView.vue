@@ -47,8 +47,14 @@ const onSubmit = handleSubmit(async (values) => {
   <div class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
     <div class="w-full max-w-sm">
       <div class="mb-8 text-center">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-chalk-100">Entrar na NousFlow</h1>
-        <p class="mt-2 text-sm text-gray-500 dark:text-chalk-400">Acesse sua conta para continuar aprendendo</p>
+        <!-- Logo mark -->
+        <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-navy-900" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        </div>
+        <h1 class="text-2xl font-bold text-navy-900 dark:text-cream-50">Entrar na plataforma</h1>
+        <p class="mt-2 text-sm text-gray-500 dark:text-navy-300">Acesse sua conta para continuar aprendendo</p>
       </div>
 
       <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
@@ -81,9 +87,9 @@ const onSubmit = handleSubmit(async (values) => {
         </AppButton>
       </form>
 
-      <p class="mt-6 text-center text-sm text-gray-500 dark:text-chalk-400">
+      <p class="mt-6 text-center text-sm text-gray-500 dark:text-navy-300">
         Não tem conta?
-        <RouterLink :to="{ name: 'register' }" class="font-medium text-gray-900 hover:underline dark:text-chalk-100">
+        <RouterLink :to="{ name: 'register' }" class="font-semibold text-navy-900 hover:text-gold-600 dark:text-gold-400 dark:hover:text-gold-300">
           Cadastre-se
         </RouterLink>
       </p>

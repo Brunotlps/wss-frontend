@@ -131,23 +131,23 @@ onUnmounted(() => {
 
 <template>
   <!-- Loading inicial da página -->
-  <div v-if="pageStatus === 'loading'" class="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-chalk-900">
-    <svg class="h-10 w-10 animate-spin text-gray-500 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+  <div v-if="pageStatus === 'loading'" class="flex min-h-screen items-center justify-center bg-cream-100 dark:bg-navy-900">
+    <svg class="h-10 w-10 animate-spin text-gold-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
     </svg>
   </div>
 
   <!-- Erro ao carregar enrollment -->
-  <div v-else-if="pageStatus === 'error'" class="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-100 dark:bg-chalk-900 text-center">
-    <p class="text-gray-700 dark:text-chalk-200">{{ errorMessage }}</p>
+  <div v-else-if="pageStatus === 'error'" class="flex min-h-screen flex-col items-center justify-center gap-4 bg-cream-100 dark:bg-navy-900 text-center">
+    <p class="text-gray-700 dark:text-navy-200">{{ errorMessage }}</p>
     <AppButton variant="secondary" @click="router.push({ name: 'dashboard' })">
       Voltar para Meus Cursos
     </AppButton>
   </div>
 
   <!-- Player -->
-  <div v-else class="flex bg-gray-100 dark:bg-chalk-900" style="min-height: calc(100vh - 65px)">
+  <div v-else class="flex bg-cream-100 dark:bg-navy-900" style="min-height: calc(100vh - 65px)">
     <!-- Área principal: vídeo + info -->
     <div class="flex flex-1 flex-col overflow-y-auto">
       <!-- Player de vídeo -->
@@ -157,7 +157,7 @@ onUnmounted(() => {
           v-if="lessonLoading"
           class="absolute inset-0 flex items-center justify-center bg-black"
         >
-          <svg class="h-10 w-10 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <svg class="h-10 w-10 animate-spin text-gold-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
@@ -176,10 +176,10 @@ onUnmounted(() => {
       </div>
 
       <!-- Lista de aulas colapsável (mobile only) -->
-      <details class="lg:hidden border-t border-gray-200 bg-white dark:border-chalk-700 dark:bg-chalk-800">
-        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-gray-900 dark:text-chalk-100 [&::-webkit-details-marker]:hidden">
+      <details class="lg:hidden border-t border-cream-200 bg-white dark:border-navy-700 dark:bg-navy-800">
+        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-navy-900 dark:text-cream-50 [&::-webkit-details-marker]:hidden">
           <span class="font-medium">Conteúdo do curso</span>
-          <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-chalk-400">
+          <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-navy-300">
             <span>{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform details-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -199,10 +199,10 @@ onUnmounted(() => {
       </details>
 
       <!-- Info da aula + navegação -->
-      <div class="bg-white p-6 dark:bg-chalk-800">
+      <div class="bg-white p-6 dark:bg-navy-800">
         <!-- Breadcrumb / título do curso -->
         <button
-          class="mb-4 flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 dark:text-chalk-400 dark:hover:text-chalk-200"
+          class="mb-4 flex items-center gap-1.5 text-sm text-gray-500 hover:text-navy-900 dark:text-navy-300 dark:hover:text-gold-400 transition-colors"
           @click="router.push({ name: 'dashboard' })"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -213,11 +213,11 @@ onUnmounted(() => {
 
         <div v-if="currentLesson" class="space-y-4">
           <div>
-            <p class="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-chalk-400">
+            <p class="text-xs font-medium uppercase tracking-wide text-gold-600 dark:text-gold-500">
               Aula {{ currentLesson.order }}
             </p>
-            <h2 class="mt-1 text-xl font-semibold text-gray-900 dark:text-chalk-100">{{ currentLesson.title }}</h2>
-            <p v-if="currentLesson.description" class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-chalk-300">
+            <h2 class="mt-1 text-xl font-semibold text-navy-900 dark:text-cream-50">{{ currentLesson.title }}</h2>
+            <p v-if="currentLesson.description" class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-navy-200">
               {{ currentLesson.description }}
             </p>
           </div>
@@ -244,11 +244,11 @@ onUnmounted(() => {
 
     <!-- Sidebar: lista de aulas -->
     <div class="hidden w-80 flex-shrink-0 lg:block">
-      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-gray-200 bg-white dark:border-chalk-700 dark:bg-chalk-800">
+      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-cream-200 bg-white dark:border-navy-700 dark:bg-navy-800">
         <!-- Cabeçalho da sidebar -->
-        <div class="border-b border-gray-200 px-4 py-4 dark:border-chalk-700">
-          <p class="font-medium text-gray-900 dark:text-chalk-100">Conteúdo do curso</p>
-          <p class="mt-0.5 text-xs text-gray-500 dark:text-chalk-400">{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</p>
+        <div class="border-b border-cream-200 px-4 py-4 dark:border-navy-700">
+          <p class="font-medium text-navy-900 dark:text-cream-50">Conteúdo do curso</p>
+          <p class="mt-0.5 text-xs text-gray-500 dark:text-navy-300">{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</p>
         </div>
 
         <!-- Lista de aulas (scrollável) -->

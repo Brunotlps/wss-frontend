@@ -11,7 +11,6 @@ const { isDark, toggle } = useTheme()
 
 const mobileMenuOpen = ref(false)
 
-// Fecha o menu ao navegar
 watch(() => route.path, () => { mobileMenuOpen.value = false })
 
 function handleLogout() {
@@ -21,12 +20,19 @@ function handleLogout() {
 </script>
 
 <template>
-  <header class="relative border-b border-gray-200 bg-white transition-colors duration-300 dark:border-chalk-700 dark:bg-chalk-950">
+  <header class="relative border-b border-cream-200 bg-white shadow-sm transition-colors duration-300 dark:border-navy-700 dark:bg-navy-950">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+
       <!-- Logo -->
-      <RouterLink :to="{ name: 'about' }" class="select-none">
-        <span class="bg-gradient-to-r from-emerald-600 via-teal-400 to-emerald-400 bg-clip-text text-xl font-bold tracking-widest text-transparent uppercase">
-          NousFlow
+      <RouterLink :to="{ name: 'about' }" class="flex items-center gap-2 select-none group">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gold-500 text-navy-900 shadow-sm group-hover:bg-gold-400 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        </span>
+        <span class="text-base font-bold tracking-tight text-navy-900 dark:text-cream-50 leading-tight">
+          Dupla de<br class="hidden xs:block sm:hidden" />
+          <span class="text-gold-500"> Milheiros</span>
         </span>
       </RouterLink>
 
@@ -34,34 +40,38 @@ function handleLogout() {
       <nav class="hidden lg:flex items-center gap-4">
         <RouterLink
           :to="{ name: 'course-list' }"
-          class="text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-chalk-400 dark:hover:text-chalk-100"
+          class="text-sm text-gray-600 transition-colors hover:text-navy-900 dark:text-navy-200 dark:hover:text-gold-400"
+          :class="{ 'font-semibold text-navy-900 dark:text-gold-500': route.name === 'course-list' }"
         >
           Cursos
         </RouterLink>
         <RouterLink
           :to="{ name: 'about' }"
-          class="text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-chalk-400 dark:hover:text-chalk-100"
+          class="text-sm text-gray-600 transition-colors hover:text-navy-900 dark:text-navy-200 dark:hover:text-gold-400"
+          :class="{ 'font-semibold text-navy-900 dark:text-gold-500': route.name === 'about' }"
         >
-          Sobre nós
+          Sobre a Dupla
         </RouterLink>
 
-        <span class="h-4 w-px bg-gray-200 dark:bg-chalk-700" />
+        <span class="h-4 w-px bg-cream-200 dark:bg-navy-700" />
 
         <template v-if="auth.isAuthenticated">
           <RouterLink
             :to="{ name: 'dashboard' }"
-            class="text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-chalk-400 dark:hover:text-chalk-100"
+            class="text-sm text-gray-600 transition-colors hover:text-navy-900 dark:text-navy-200 dark:hover:text-gold-400"
+            :class="{ 'font-semibold text-navy-900 dark:text-gold-500': route.name === 'dashboard' }"
           >
             Meus Cursos
           </RouterLink>
           <RouterLink
             :to="{ name: 'certificates' }"
-            class="text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-chalk-400 dark:hover:text-chalk-100"
+            class="text-sm text-gray-600 transition-colors hover:text-navy-900 dark:text-navy-200 dark:hover:text-gold-400"
+            :class="{ 'font-semibold text-navy-900 dark:text-gold-500': route.name === 'certificates' }"
           >
             Certificados
           </RouterLink>
           <button
-            class="rounded-md bg-gray-100 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-200 dark:bg-chalk-700 dark:text-chalk-200 dark:hover:bg-chalk-600"
+            class="rounded-md border border-cream-200 bg-cream-100 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-cream-200 dark:border-navy-700 dark:bg-navy-800 dark:text-navy-200 dark:hover:bg-navy-700"
             @click="handleLogout"
           >
             Sair
@@ -70,13 +80,13 @@ function handleLogout() {
         <template v-else>
           <RouterLink
             :to="{ name: 'login' }"
-            class="text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-chalk-400 dark:hover:text-chalk-100"
+            class="text-sm text-gray-600 transition-colors hover:text-navy-900 dark:text-navy-200 dark:hover:text-gold-400"
           >
             Entrar
           </RouterLink>
           <RouterLink
             :to="{ name: 'register' }"
-            class="rounded-md bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            class="rounded-md bg-gold-500 px-3 py-1.5 text-sm font-semibold text-navy-900 transition-colors hover:bg-gold-400"
           >
             Cadastrar
           </RouterLink>
@@ -84,7 +94,7 @@ function handleLogout() {
 
         <!-- Toggle de tema -->
         <button
-          class="flex h-8 w-8 items-center justify-center rounded-md text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-chalk-400 dark:hover:bg-chalk-700 dark:hover:text-chalk-100"
+          class="flex h-8 w-8 items-center justify-center rounded-md text-gray-400 transition-colors hover:bg-cream-200 hover:text-gray-700 dark:text-navy-300 dark:hover:bg-navy-800 dark:hover:text-gold-400"
           :title="isDark ? 'Mudar para tema claro' : 'Mudar para tema escuro'"
           @click="toggle"
         >
@@ -99,9 +109,8 @@ function handleLogout() {
 
       <!-- Controles mobile (< lg) -->
       <div class="flex items-center gap-2 lg:hidden">
-        <!-- Toggle de tema -->
         <button
-          class="flex h-9 w-9 items-center justify-center rounded-md text-gray-500 transition-colors hover:bg-gray-100 dark:text-chalk-400 dark:hover:bg-chalk-800"
+          class="flex h-9 w-9 items-center justify-center rounded-md text-gray-400 transition-colors hover:bg-cream-200 dark:text-navy-300 dark:hover:bg-navy-800"
           :title="isDark ? 'Mudar para tema claro' : 'Mudar para tema escuro'"
           @click="toggle"
         >
@@ -113,17 +122,14 @@ function handleLogout() {
           </svg>
         </button>
 
-        <!-- Hamburguer -->
         <button
-          class="flex h-9 w-9 items-center justify-center rounded-md text-gray-500 transition-colors hover:bg-gray-100 dark:text-chalk-400 dark:hover:bg-chalk-800"
+          class="flex h-9 w-9 items-center justify-center rounded-md text-gray-400 transition-colors hover:bg-cream-200 dark:text-navy-300 dark:hover:bg-navy-800"
           :aria-label="mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
           @click="mobileMenuOpen = !mobileMenuOpen"
         >
-          <!-- X quando aberto -->
           <svg v-if="mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
-          <!-- Hamburguer quando fechado -->
           <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -142,39 +148,39 @@ function handleLogout() {
     >
       <nav
         v-if="mobileMenuOpen"
-        class="absolute left-0 right-0 top-full z-50 border-b border-gray-200 bg-white px-4 pb-4 pt-2 shadow-lg lg:hidden dark:border-chalk-700 dark:bg-chalk-950"
+        class="absolute left-0 right-0 top-full z-50 border-b border-cream-200 bg-white px-4 pb-4 pt-2 shadow-lg lg:hidden dark:border-navy-700 dark:bg-navy-950"
       >
         <div class="flex flex-col gap-1">
           <RouterLink
             :to="{ name: 'course-list' }"
-            class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-chalk-300 dark:hover:bg-chalk-800 dark:hover:text-chalk-100"
+            class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-cream-100 hover:text-navy-900 dark:text-navy-200 dark:hover:bg-navy-800 dark:hover:text-gold-400"
           >
             Cursos
           </RouterLink>
           <RouterLink
             :to="{ name: 'about' }"
-            class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-chalk-300 dark:hover:bg-chalk-800 dark:hover:text-chalk-100"
+            class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-cream-100 hover:text-navy-900 dark:text-navy-200 dark:hover:bg-navy-800 dark:hover:text-gold-400"
           >
-            Sobre nós
+            Sobre a Dupla
           </RouterLink>
 
-          <div class="my-1 border-t border-gray-100 dark:border-chalk-800" />
+          <div class="my-1 border-t border-cream-200 dark:border-navy-800" />
 
           <template v-if="auth.isAuthenticated">
             <RouterLink
               :to="{ name: 'dashboard' }"
-              class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-chalk-300 dark:hover:bg-chalk-800 dark:hover:text-chalk-100"
+              class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-cream-100 hover:text-navy-900 dark:text-navy-200 dark:hover:bg-navy-800 dark:hover:text-gold-400"
             >
               Meus Cursos
             </RouterLink>
             <RouterLink
               :to="{ name: 'certificates' }"
-              class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-chalk-300 dark:hover:bg-chalk-800 dark:hover:text-chalk-100"
+              class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-cream-100 hover:text-navy-900 dark:text-navy-200 dark:hover:bg-navy-800 dark:hover:text-gold-400"
             >
               Certificados
             </RouterLink>
             <button
-              class="mt-1 w-full rounded-md bg-gray-100 px-3 py-2.5 text-left text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-chalk-800 dark:text-chalk-200 dark:hover:bg-chalk-700"
+              class="mt-1 w-full rounded-md border border-cream-200 bg-cream-100 px-3 py-2.5 text-left text-sm font-medium text-gray-700 transition-colors hover:bg-cream-200 dark:border-navy-700 dark:bg-navy-800 dark:text-navy-200 dark:hover:bg-navy-700"
               @click="handleLogout"
             >
               Sair
@@ -183,13 +189,13 @@ function handleLogout() {
           <template v-else>
             <RouterLink
               :to="{ name: 'login' }"
-              class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-chalk-300 dark:hover:bg-chalk-800 dark:hover:text-chalk-100"
+              class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-cream-100 hover:text-navy-900 dark:text-navy-200 dark:hover:bg-navy-800 dark:hover:text-gold-400"
             >
               Entrar
             </RouterLink>
             <RouterLink
               :to="{ name: 'register' }"
-              class="mt-1 block rounded-md bg-gradient-to-r from-emerald-600 to-teal-500 px-3 py-2.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
+              class="mt-1 block rounded-md bg-gold-500 px-3 py-2.5 text-center text-sm font-semibold text-navy-900 transition-colors hover:bg-gold-400"
             >
               Cadastrar
             </RouterLink>

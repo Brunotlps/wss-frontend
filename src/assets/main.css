@@ -4,21 +4,32 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Chalkboard — tema escuro (padrão) */
-  --color-chalk-950: #070d09;
-  --color-chalk-900: #0b0f0d;
-  --color-chalk-800: #131a14;
-  --color-chalk-700: #1d2b1f;
-  --color-chalk-600: #253329;
-  --color-chalk-500: #2e3d31;
-  --color-chalk-400: #7a9c7f;
-  --color-chalk-200: #b8d4bc;
-  --color-chalk-100: #e0ebe2;
-  --color-chalk-50:  #f0f7f2;
+  /* Navy — Dupla de Milheiros, tema escuro */
+  --color-navy-950: #020215;
+  --color-navy-900: #060642;
+  --color-navy-800: #09095e;
+  --color-navy-700: #0d0d7a;
+  --color-navy-600: #141496;
+  --color-navy-500: #1e1eb0;
+  --color-navy-400: #3d3dcc;
+  --color-navy-300: #6868dd;
+  --color-navy-200: #9898ee;
+  --color-navy-100: #c8c8f5;
+  --color-navy-50:  #f0f0ff;
 
-  /* Pastel — tema claro */
-  --color-pastel-50:  #f3f7f4;
-  --color-pastel-100: #e5f0e8;
-  --color-pastel-200: #cce0d2;
-  --color-pastel-300: #a8c8b0;
+  /* Gold — destaque Dupla de Milheiros */
+  --color-gold-700: #9e7800;
+  --color-gold-600: #c49600;
+  --color-gold-500: #ffd942;
+  --color-gold-400: #ffe166;
+  --color-gold-300: #ffe999;
+  --color-gold-200: #fff2cc;
+  --color-gold-100: #fff8e6;
+  --color-gold-50:  #fffdf5;
+
+  /* Cream — tema claro */
+  --color-cream-50:  #fefefe;
+  --color-cream-100: #f7f7f7;
+  --color-cream-200: #ebebeb;
+  --color-cream-300: #d0d0d0;
 }

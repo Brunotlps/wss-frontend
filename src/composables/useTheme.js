@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 
-const STORAGE_KEY = 'nousflow-theme'
+const STORAGE_KEY = 'dupla-milheiros-theme'
 
 // Singleton — estado compartilhado entre todos os componentes
 const isDark = ref(localStorage.getItem(STORAGE_KEY) !== 'light')
