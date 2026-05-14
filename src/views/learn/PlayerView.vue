@@ -34,6 +34,26 @@ const completedLessonIds = computed(() => {
   return new Set(lp.filter((p) => p.completed).map((p) => p.lesson))
 })
 
+// — Agrupamento da sidebar por módulo (null = lista plana)
+const groupedSidebar = computed(() => {
+  const hasModules = lessons.value.some((l) => l.module !== null && l.module !== undefined)
+  if (!hasModules) return null
+
+  const moduleMap = new Map()
+  for (const lesson of lessons.value) {
+    const key = lesson.module ?? '__none__'
+    if (!moduleMap.has(key)) {
+      moduleMap.set(key, {
+        id: lesson.module,
+        title: lesson.module_title ?? 'Sem módulo',
+        lessons: [],
+      })
+    }
+    moduleMap.get(key).lessons.push(lesson)
+  }
+  return [...moduleMap.values()]
+})
+
 // — Carregar detalhe de uma aula e inicializar progresso
 async function loadLesson(lessonId) {
   lessonLoading.value = true
@@ -187,14 +207,33 @@ onUnmounted(() => {
           </div>
         </summary>
         <div class="py-2">
-          <LessonItem
-            v-for="lesson in lessons"
-            :key="lesson.id"
-            :lesson="lesson"
-            :is-active="currentLesson?.id === lesson.id"
-            :is-completed="completedLessonIds.has(lesson.id)"
-            @select="selectLesson"
-          />
+          <!-- Agrupado por módulo -->
+          <template v-if="groupedSidebar">
+            <div v-for="group in groupedSidebar" :key="group.id ?? '__none__'">
+              <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-navy-500">
+                {{ group.title }}
+              </p>
+              <LessonItem
+                v-for="lesson in group.lessons"
+                :key="lesson.id"
+                :lesson="lesson"
+                :is-active="currentLesson?.id === lesson.id"
+                :is-completed="completedLessonIds.has(lesson.id)"
+                @select="selectLesson"
+              />
+            </div>
+          </template>
+          <!-- Lista plana (sem módulos) -->
+          <template v-else>
+            <LessonItem
+              v-for="lesson in lessons"
+              :key="lesson.id"
+              :lesson="lesson"
+              :is-active="currentLesson?.id === lesson.id"
+              :is-completed="completedLessonIds.has(lesson.id)"
+              @select="selectLesson"
+            />
+          </template>
         </div>
       </details>
 
@@ -253,14 +292,33 @@ onUnmounted(() => {
 
         <!-- Lista de aulas (scrollável) -->
         <div class="flex-1 overflow-y-auto py-2">
-          <LessonItem
-            v-for="lesson in lessons"
-            :key="lesson.id"
-            :lesson="lesson"
-            :is-active="currentLesson?.id === lesson.id"
-            :is-completed="completedLessonIds.has(lesson.id)"
-            @select="selectLesson"
-          />
+          <!-- Agrupado por módulo -->
+          <template v-if="groupedSidebar">
+            <div v-for="group in groupedSidebar" :key="group.id ?? '__none__'">
+              <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-navy-500">
+                {{ group.title }}
+              </p>
+              <LessonItem
+                v-for="lesson in group.lessons"
+                :key="lesson.id"
+                :lesson="lesson"
+                :is-active="currentLesson?.id === lesson.id"
+                :is-completed="completedLessonIds.has(lesson.id)"
+                @select="selectLesson"
+              />
+            </div>
+          </template>
+          <!-- Lista plana (sem módulos) -->
+          <template v-else>
+            <LessonItem
+              v-for="lesson in lessons"
+              :key="lesson.id"
+              :lesson="lesson"
+              :is-active="currentLesson?.id === lesson.id"
+              :is-completed="completedLessonIds.has(lesson.id)"
+              @select="selectLesson"
+            />
+          </template>
         </div>
       </div>
     </div>

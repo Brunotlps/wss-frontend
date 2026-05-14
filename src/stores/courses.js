@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { courseService } from '@/services/courseService.js'
+import { lessonService } from '@/services/lessonService.js'
 
 export const useCoursesStore = defineStore('courses', () => {
   const courses = ref([])
@@ -27,8 +28,23 @@ export const useCoursesStore = defineStore('courses', () => {
     error.value = null
     currentCourse.value = null
     try {
-      const { data } = await courseService.getCourse(id)
-      currentCourse.value = data
+      const [courseRes, modulesRes] = await Promise.all([
+        courseService.getCourse(id),
+        courseService.getCourseModules(id).catch(() => ({ data: [] })),
+      ])
+
+      const course = courseRes.data
+      const modules = Array.isArray(modulesRes.data) ? modulesRes.data : []
+
+      if (modules.length > 0) {
+        course.modules = modules
+      } else {
+        const lessonsRes = await lessonService.getLessons(id).catch(() => ({ data: [] }))
+        const lessonsData = lessonsRes.data
+        course.lessons = Array.isArray(lessonsData) ? lessonsData : (lessonsData.results ?? [])
+      }
+
+      currentCourse.value = course
     } catch (e) {
       error.value = 'Não foi possível carregar o curso.'
     } finally {
