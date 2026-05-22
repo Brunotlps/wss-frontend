@@ -46,6 +46,15 @@
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
+/* ── Hero glow — background-image only, bg-color vem do Tailwind ── */
+.hero-glow {
+  background-image: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgba(255, 217, 66, 0.08) 0%,
+    transparent 70%
+  );
+}
+
 /* ── Text gradient gold ── */
 .text-gradient-gold {
   background: linear-gradient(135deg, #ffd942 0%, #ffe699 60%, #ffd942 100%);
@@ -54,25 +63,21 @@
   background-clip: text;
 }
 
-/* ── Hero glow overlay (pseudo-element via bg utility) ── */
-.hero-glow {
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255, 217, 66, 0.07) 0%, transparent 70%),
-    #060642;
-}
-
-/* ── Section divider ── */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 217, 66, 0.25) 30%, rgba(255, 217, 66, 0.25) 70%, transparent 100%);
-}
-
-/* ── Card glow on hover ── */
+/* ── Card glow on hover (dark mode) ── */
 .card-glow {
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
-.card-glow:hover {
+.dark .card-glow:hover {
   border-color: rgba(255, 217, 66, 0.25);
   box-shadow: 0 8px 40px -8px rgba(255, 217, 66, 0.12);
+  transform: translateY(-3px);
+}
+
+/* ── Card lift (light mode) ── */
+.card-lift {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-lift:hover {
+  box-shadow: 0 8px 30px -4px rgba(6, 6, 66, 0.12);
   transform: translateY(-3px);
 }

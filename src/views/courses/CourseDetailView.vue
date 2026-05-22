@@ -87,7 +87,7 @@ function totalLessons(course) {
     <template v-else-if="store.currentCourse">
 
       <!-- Hero do curso -->
-      <section class="hero-glow px-4 pb-10 pt-16 sm:px-6 lg:px-8">
+      <section class="hero-glow bg-white px-4 pb-10 pt-16 sm:px-6 lg:px-8 dark:bg-dm-navy-900">
         <div class="mx-auto max-w-6xl">
 
           <!-- Breadcrumb -->
@@ -111,12 +111,12 @@ function totalLessons(course) {
                   {{ DIFFICULTY_LABELS[store.currentCourse.difficulty] ?? store.currentCourse.difficulty }}
                 </span>
 
-                <h1 class="font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
+                <h1 class="font-display text-3xl font-bold leading-tight text-dm-navy-900 sm:text-4xl dark:text-white">
                   {{ store.currentCourse.title }}
                 </h1>
 
-                <p v-if="store.currentCourse.instructor_name" class="mt-3 text-sm text-dm-navy-200">
-                  Por <span class="text-dm-navy-100">{{ store.currentCourse.instructor_name }}</span>
+                <p v-if="store.currentCourse.instructor_name" class="mt-3 text-sm text-slate-500 dark:text-dm-navy-200">
+                  Por <span class="text-slate-700 dark:text-dm-navy-100">{{ store.currentCourse.instructor_name }}</span>
                 </p>
               </RevealSection>
 
@@ -136,7 +136,7 @@ function totalLessons(course) {
             <div class="hidden lg:block">
               <div class="sticky top-24 overflow-hidden rounded-2xl border border-white/10 bg-white/4 shadow-2xl shadow-black/40 backdrop-blur-sm">
                 <div class="p-6">
-                  <p class="font-display text-3xl font-bold text-white">
+                  <p class="font-display text-3xl font-bold text-dm-navy-900 dark:text-white">
                     {{ isFree ? 'Gratuito' : formatCurrency(store.currentCourse.price) }}
                   </p>
                   <div class="mt-5">
@@ -183,15 +183,15 @@ function totalLessons(course) {
       </section>
 
       <!-- ── Detalhes ── -->
-      <div class="section-divider mx-auto max-w-6xl" />
-      <section class="px-4 py-14 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-dm-gold/20" />
+      <section class="bg-slate-50 px-4 py-14 sm:px-6 lg:px-8 dark:bg-dm-navy-900">
         <div class="mx-auto max-w-6xl lg:grid lg:grid-cols-3 lg:gap-12">
           <div class="lg:col-span-2 space-y-10">
 
             <!-- Descrição -->
             <RevealSection v-if="store.currentCourse.description" animation="up">
-              <h2 class="mb-4 font-display text-xl font-bold text-white">Sobre o curso</h2>
-              <p class="whitespace-pre-line leading-relaxed text-dm-navy-200">
+              <h2 class="mb-4 font-display text-xl font-bold text-dm-navy-900 dark:text-white">Sobre o curso</h2>
+              <p class="whitespace-pre-line leading-relaxed text-slate-600 dark:text-dm-navy-200">
                 {{ store.currentCourse.description }}
               </p>
             </RevealSection>
@@ -259,9 +259,9 @@ function totalLessons(course) {
       </section>
 
       <!-- ── CTA mobile ── -->
-      <section class="sticky bottom-0 border-t border-white/8 bg-dm-navy-900/95 px-4 py-4 backdrop-blur-sm lg:hidden">
+      <section class="sticky bottom-0 border-t border-slate-200 bg-white/95 px-4 py-4 backdrop-blur-sm lg:hidden dark:border-white/8 dark:bg-dm-navy-900/95">
         <div class="flex items-center justify-between gap-4">
-          <p class="font-display text-xl font-bold text-white">
+          <p class="font-display text-xl font-bold text-dm-navy-900 dark:text-white">
             {{ isFree ? 'Gratuito' : formatCurrency(store.currentCourse.price) }}
           </p>
           <AppButton

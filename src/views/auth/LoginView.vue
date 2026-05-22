@@ -45,24 +45,28 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="relative flex min-h-[calc(100vh-65px)] items-center justify-center overflow-hidden px-4 py-16">
-    <!-- Glow de fundo -->
-    <div class="pointer-events-none absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-dm-gold/8 blur-3xl" />
-    <div class="pointer-events-none absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-dm-navy-700/40 blur-3xl" />
+  <div class="relative flex min-h-[calc(100vh-65px)] items-center justify-center overflow-hidden bg-slate-50 px-4 py-16 dark:bg-dm-navy-900">
+    <!-- Glow decorativo -->
+    <div class="pointer-events-none absolute left-1/2 top-0 h-64 w-96 -translate-x-1/2 rounded-full bg-dm-gold/6 blur-3xl dark:bg-dm-gold/8" />
 
     <RevealSection animation="up" class="relative z-10 w-full max-w-sm">
 
       <!-- Logo + cabeçalho -->
       <div class="mb-8 text-center">
         <RouterLink :to="{ name: 'about' }">
-          <img src="/brand/logo-dark.png" alt="Dupla de Milheiros" class="mx-auto mb-6 h-10 w-auto" />
+          <img
+            src="/brand/logo-dark.png"
+            alt="Dupla de Milheiros"
+            class="mx-auto mb-6 h-10 w-auto object-contain"
+            style="max-width: 160px"
+          />
         </RouterLink>
-        <h1 class="font-display text-2xl font-bold text-white">Entrar na sua conta</h1>
-        <p class="mt-2 text-sm text-dm-navy-200">Acesse e continue aprendendo</p>
+        <h1 class="font-display text-2xl font-bold text-dm-navy-900 dark:text-white">Entrar na sua conta</h1>
+        <p class="mt-2 text-sm text-slate-500 dark:text-dm-navy-200">Acesse e continue aprendendo</p>
       </div>
 
       <!-- Card do formulário -->
-      <div class="rounded-2xl border border-white/8 bg-white/4 p-8 shadow-2xl shadow-black/40 backdrop-blur-sm">
+      <div class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-white/8 dark:bg-white/4 dark:shadow-black/30 dark:backdrop-blur-sm">
         <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
           <AppInput
             id="email"
@@ -84,7 +88,7 @@ const onSubmit = handleSubmit(async (values) => {
             :error="passwordError"
           />
 
-          <p v-if="globalError" class="rounded-xl bg-red-900/30 px-4 py-2.5 text-sm text-red-400">
+          <p v-if="globalError" class="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
             {{ globalError }}
           </p>
 
@@ -94,7 +98,7 @@ const onSubmit = handleSubmit(async (values) => {
         </form>
       </div>
 
-      <p class="mt-6 text-center text-sm text-dm-navy-200">
+      <p class="mt-6 text-center text-sm text-slate-500 dark:text-dm-navy-200">
         Não tem conta?
         <RouterLink :to="{ name: 'register' }" class="font-semibold text-dm-gold hover:underline">
           Cadastre-se gratuitamente

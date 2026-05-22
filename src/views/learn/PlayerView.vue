@@ -131,7 +131,7 @@ onUnmounted(() => {
 
 <template>
   <!-- Loading inicial da página -->
-  <div v-if="pageStatus === 'loading'" class="flex min-h-screen items-center justify-center bg-dm-navy-900">
+  <div v-if="pageStatus === 'loading'" class="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-dm-navy-900">
     <svg class="h-10 w-10 animate-spin text-dm-gold" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -139,15 +139,15 @@ onUnmounted(() => {
   </div>
 
   <!-- Erro ao carregar enrollment -->
-  <div v-else-if="pageStatus === 'error'" class="flex min-h-screen flex-col items-center justify-center gap-4 bg-dm-navy-900 text-center">
-    <p class="text-dm-navy-200">{{ errorMessage }}</p>
+  <div v-else-if="pageStatus === 'error'" class="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50 text-center dark:bg-dm-navy-900">
+    <p class="text-slate-500 dark:text-dm-navy-200">{{ errorMessage }}</p>
     <AppButton variant="secondary" @click="router.push({ name: 'dashboard' })">
       Voltar para Meus Cursos
     </AppButton>
   </div>
 
   <!-- Player -->
-  <div v-else class="flex bg-dm-navy-900" style="min-height: calc(100vh - 65px)">
+  <div v-else class="flex bg-slate-50 dark:bg-dm-navy-900" style="min-height: calc(100vh - 65px)">
     <!-- Área principal: vídeo + info -->
     <div class="flex flex-1 flex-col overflow-y-auto">
       <!-- Player de vídeo -->
@@ -176,10 +176,10 @@ onUnmounted(() => {
       </div>
 
       <!-- Lista de aulas colapsável (mobile only) -->
-      <details class="lg:hidden border-t border-white/8 bg-dm-navy-900">
-        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-white [&::-webkit-details-marker]:hidden">
+      <details class="lg:hidden border-t border-slate-200 bg-white dark:border-white/8 dark:bg-dm-navy-900">
+        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-dm-navy-900 dark:text-white [&::-webkit-details-marker]:hidden">
           <span class="font-medium">Conteúdo do curso</span>
-          <div class="flex items-center gap-2 text-xs text-dm-navy-200">
+          <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-dm-navy-200">
             <span>{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform details-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -199,10 +199,10 @@ onUnmounted(() => {
       </details>
 
       <!-- Info da aula + navegação -->
-      <div class="border-t border-white/5 bg-dm-navy-900 p-6">
+      <div class="border-t border-slate-200 bg-white p-6 dark:border-white/5 dark:bg-dm-navy-900">
         <!-- Breadcrumb / título do curso -->
         <button
-          class="mb-4 flex items-center gap-1.5 text-sm text-dm-navy-200 hover:text-dm-gold transition-colors"
+          class="mb-4 flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-dm-gold"
           @click="router.push({ name: 'dashboard' })"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -216,8 +216,8 @@ onUnmounted(() => {
             <p class="text-xs font-medium uppercase tracking-wide text-dm-gold">
               Aula {{ currentLesson.order }}
             </p>
-            <h2 class="mt-1 font-display text-xl font-semibold text-white">{{ currentLesson.title }}</h2>
-            <p v-if="currentLesson.description" class="mt-2 text-sm leading-relaxed text-dm-navy-200">
+            <h2 class="mt-1 font-display text-xl font-semibold text-dm-navy-900 dark:text-white">{{ currentLesson.title }}</h2>
+            <p v-if="currentLesson.description" class="mt-2 text-sm leading-relaxed text-slate-500 dark:text-dm-navy-200">
               {{ currentLesson.description }}
             </p>
           </div>
@@ -244,11 +244,11 @@ onUnmounted(() => {
 
     <!-- Sidebar: lista de aulas -->
     <div class="hidden w-80 flex-shrink-0 lg:block">
-      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-white/8 bg-dm-navy-900">
+      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-slate-200 bg-white dark:border-white/8 dark:bg-dm-navy-900">
         <!-- Cabeçalho da sidebar -->
-        <div class="border-b border-white/8 px-4 py-4">
-          <p class="font-display font-medium text-white">Conteúdo do curso</p>
-          <p class="mt-0.5 text-xs text-dm-navy-200">{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</p>
+        <div class="border-b border-slate-200 px-4 py-4 dark:border-white/8">
+          <p class="font-display font-medium text-dm-navy-900 dark:text-white">Conteúdo do curso</p>
+          <p class="mt-0.5 text-xs text-slate-500 dark:text-dm-navy-200">{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</p>
         </div>
 
         <!-- Lista de aulas (scrollável) -->

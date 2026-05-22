@@ -18,9 +18,9 @@ defineProps({
       variant === 'primary' &&
         'bg-dm-gold text-dm-navy-900 shadow-md shadow-dm-gold/20 hover:bg-dm-gold-400 hover:shadow-dm-gold/30 focus-visible:ring-dm-gold',
       variant === 'secondary' &&
-        'border border-white/10 bg-white/5 text-dm-navy-100 hover:border-dm-gold/30 hover:text-white focus-visible:ring-dm-navy-200',
+        'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-white/5 dark:text-dm-navy-100 dark:hover:border-dm-gold/30 dark:hover:text-white dark:focus-visible:ring-dm-navy-200',
       variant === 'ghost' &&
-        'text-dm-navy-200 hover:bg-white/5 hover:text-white focus-visible:ring-dm-navy-200',
+        'text-slate-600 hover:bg-slate-50 hover:text-dm-navy-900 focus-visible:ring-slate-300 dark:text-dm-navy-200 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:ring-dm-navy-200',
       variant === 'outline' &&
         'border border-dm-gold/70 text-dm-gold hover:bg-dm-gold hover:text-dm-navy-900 focus-visible:ring-dm-gold',
     ]"
