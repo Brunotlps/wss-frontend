@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useTheme } from '@/composables/useTheme.js'
@@ -10,9 +10,7 @@ const route = useRoute()
 const { isDark, toggle } = useTheme()
 const mobileOpen = ref(false)
 
-const mobileMenuOpen = ref(false)
-
-watch(() => route.path, () => { mobileMenuOpen.value = false })
+watch(() => route.path, () => { mobileOpen.value = false })
 
 function handleLogout() {
   auth.logout()
