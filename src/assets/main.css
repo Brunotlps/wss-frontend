@@ -23,21 +23,6 @@
   --font-sans:    'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
 
-  /* ── Legado (remover após migração completa dos componentes) ── */
-  --color-chalk-950: #070d09;
-  --color-chalk-900: #0b0f0d;
-  --color-chalk-800: #131a14;
-  --color-chalk-700: #1d2b1f;
-  --color-chalk-600: #253329;
-  --color-chalk-500: #2e3d31;
-  --color-chalk-400: #7a9c7f;
-  --color-chalk-200: #b8d4bc;
-  --color-chalk-100: #e0ebe2;
-  --color-chalk-50:  #f0f7f2;
-  --color-pastel-50:  #f3f7f4;
-  --color-pastel-100: #e5f0e8;
-  --color-pastel-200: #cce0d2;
-  --color-pastel-300: #a8c8b0;
 }
 
 /* ── Scroll Reveal Animations ── */

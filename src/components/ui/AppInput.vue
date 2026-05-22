@@ -13,7 +13,7 @@ const model = defineModel()
 
 <template>
   <div class="flex flex-col gap-1">
-    <label v-if="label" :for="id" class="text-sm font-medium text-gray-700 dark:text-chalk-200">
+    <label v-if="label" :for="id" class="text-sm font-medium text-dm-navy-200">
       {{ label }}
     </label>
     <input
@@ -23,14 +23,13 @@ const model = defineModel()
       :placeholder="placeholder"
       :autocomplete="autocomplete"
       :class="[
-        'rounded-md border px-3 py-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1',
-        'bg-white text-gray-900 placeholder-gray-400',
-        'dark:bg-chalk-800 dark:text-chalk-100 dark:placeholder-chalk-500',
+        'rounded-lg border px-3 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-dm-navy-800',
+        'bg-dm-navy-700 text-white placeholder-dm-navy-200',
         error
-          ? 'border-red-400 focus:ring-red-400 dark:border-red-500'
-          : 'border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 dark:border-chalk-600 dark:focus:border-emerald-500',
+          ? 'border-red-500 focus:ring-red-500'
+          : 'border-dm-navy-600 focus:border-dm-gold focus:ring-dm-gold',
       ]"
     />
-    <p v-if="error" class="text-xs text-red-500">{{ error }}</p>
+    <p v-if="error" class="text-xs text-red-400">{{ error }}</p>
   </div>
 </template>
