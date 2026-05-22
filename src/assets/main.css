@@ -4,7 +4,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Chalkboard — tema escuro (padrão) */
+  /* ── Dupla de Milheiros — paleta oficial ── */
+  --color-dm-navy-900: #060642;
+  --color-dm-navy-800: #09095e;
+  --color-dm-navy-700: #0d0d7a;
+  --color-dm-navy-600: #1a1a9a;
+  --color-dm-navy-200: #9898ee;
+  --color-dm-navy-100: #c4c4f4;
+  --color-dm-blue:     #0339bf;
+  --color-dm-blue-400: #2554d6;
+  --color-dm-gold:     #ffd942;
+  --color-dm-gold-400: #ffe166;
+  --color-dm-cream:    #f7f7f7;
+  --color-dm-cream-200:#ebebeb;
+  --color-dm-black:    #000000;
+
+  /* ── Tipografia ── */
+  --font-sans:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Legado (remover após migração completa dos componentes) ── */
   --color-chalk-950: #070d09;
   --color-chalk-900: #0b0f0d;
   --color-chalk-800: #131a14;
@@ -15,10 +34,37 @@
   --color-chalk-200: #b8d4bc;
   --color-chalk-100: #e0ebe2;
   --color-chalk-50:  #f0f7f2;
-
-  /* Pastel — tema claro */
   --color-pastel-50:  #f3f7f4;
   --color-pastel-100: #e5f0e8;
   --color-pastel-200: #cce0d2;
   --color-pastel-300: #a8c8b0;
+}
+
+/* ── Scroll Reveal Animations ── */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal-left  { transform: translateX(-48px); }
+.reveal-right { transform: translateX(48px); }
+.reveal-up    { transform: translateY(40px); }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Atrasos escalonados para grupos de elementos */
+.reveal-delay-100 { transition-delay: 100ms; }
+.reveal-delay-200 { transition-delay: 200ms; }
+.reveal-delay-300 { transition-delay: 300ms; }
+.reveal-delay-400 { transition-delay: 400ms; }
+
+/* Respeita preferência do usuário por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
