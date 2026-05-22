@@ -9,6 +9,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { extractFieldErrors, parseDRFError } from '@/utils/errors.js'
 import AppInput from '@/components/ui/AppInput.vue'
 import AppButton from '@/components/ui/AppButton.vue'
+import RevealSection from '@/components/ui/RevealSection.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -44,14 +45,19 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
-    <div class="w-full max-w-sm">
+  <div class="flex min-h-[calc(100vh-65px)] items-center justify-center bg-dm-navy-900 px-4 py-12">
+    <RevealSection animation="up" class="w-full max-w-sm">
+
+      <!-- Logo + cabeçalho -->
       <div class="mb-8 text-center">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-chalk-100">Entrar na NousFlow</h1>
-        <p class="mt-2 text-sm text-gray-500 dark:text-chalk-400">Acesse sua conta para continuar aprendendo</p>
+        <RouterLink :to="{ name: 'about' }">
+          <img src="/brand/logo-dark.png" alt="Dupla de Milheiros" class="mx-auto mb-6 h-10 w-auto" />
+        </RouterLink>
+        <h1 class="font-display text-2xl font-bold text-white">Entrar na sua conta</h1>
+        <p class="mt-2 text-sm text-dm-navy-200">Acesse e continue aprendendo</p>
       </div>
 
-      <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
+      <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
         <AppInput
           id="email"
           v-model="email"
@@ -72,21 +78,22 @@ const onSubmit = handleSubmit(async (values) => {
           :error="passwordError"
         />
 
-        <p v-if="globalError" class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
+        <p v-if="globalError" class="rounded-xl bg-red-900/30 px-4 py-2.5 text-sm text-red-400">
           {{ globalError }}
         </p>
 
-        <AppButton type="submit" :loading="isSubmitting" full>
+        <AppButton type="submit" :loading="isSubmitting" full class="mt-1">
           {{ isSubmitting ? 'Entrando...' : 'Entrar' }}
         </AppButton>
       </form>
 
-      <p class="mt-6 text-center text-sm text-gray-500 dark:text-chalk-400">
+      <p class="mt-6 text-center text-sm text-dm-navy-200">
         Não tem conta?
-        <RouterLink :to="{ name: 'register' }" class="font-medium text-gray-900 hover:underline dark:text-chalk-100">
+        <RouterLink :to="{ name: 'register' }" class="font-semibold text-dm-gold hover:underline">
           Cadastre-se
         </RouterLink>
       </p>
-    </div>
+
+    </RevealSection>
   </div>
 </template>
