@@ -60,7 +60,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="relative flex min-h-[calc(100vh-65px)] items-center justify-center overflow-hidden bg-slate-50 px-4 py-16 dark:bg-dm-navy-900">
+  <div class="relative flex min-h-[calc(100vh-65px)] items-center justify-center overflow-hidden bg-slate-50 px-4 py-8 sm:py-16 dark:bg-dm-navy-900">
     <!-- Glow decorativo -->
     <div class="pointer-events-none absolute left-1/2 top-0 h-64 w-96 -translate-x-1/2 rounded-full bg-dm-gold/6 blur-3xl dark:bg-dm-gold/8" />
 
@@ -81,7 +81,7 @@ const onSubmit = handleSubmit(async (values) => {
       </div>
 
       <!-- Card do formulário -->
-      <div class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-white/8 dark:bg-white/4 dark:shadow-black/30 dark:backdrop-blur-sm">
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 dark:border-white/8 dark:bg-white/4 dark:shadow-black/30 dark:backdrop-blur-sm">
         <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
           <div class="grid grid-cols-2 gap-3">
             <AppInput id="first_name" v-model="first_name" label="Nome" placeholder="Bruno" autocomplete="given-name" :error="firstNameError" />

@@ -199,7 +199,7 @@ onUnmounted(() => {
       </details>
 
       <!-- Info da aula + navegação -->
-      <div class="border-t border-slate-200 bg-white p-6 dark:border-white/5 dark:bg-dm-navy-900">
+      <div class="border-t border-slate-200 bg-white p-4 sm:p-6 dark:border-white/5 dark:bg-dm-navy-900">
         <!-- Breadcrumb / título do curso -->
         <button
           class="mb-4 flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-dm-gold"

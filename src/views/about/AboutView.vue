@@ -157,7 +157,7 @@ function toggleFaq(index) {
         </RevealSection>
 
         <RevealSection animation="up" :delay="100">
-          <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-dm-gold/40 bg-dm-gold/10 px-4 py-1.5 text-sm font-medium text-dm-gold">
+          <div class="mb-5 inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-dm-gold/40 bg-dm-gold/10 px-4 py-1.5 text-sm font-medium text-dm-gold">
             <span>✈️</span>
             <span>A plataforma das milhas aéreas</span>
           </div>
@@ -191,7 +191,7 @@ function toggleFaq(index) {
     <div class="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-dm-gold/20" />
 
     <!-- ── Quem somos ── -->
-    <section class="bg-white px-4 py-20 sm:px-6 lg:px-8 dark:bg-dm-navy-900">
+    <section class="overflow-x-clip bg-white px-4 py-20 sm:px-6 lg:px-8 dark:bg-dm-navy-900">
       <div class="mx-auto max-w-6xl">
         <div class="grid items-center gap-12 lg:grid-cols-2">
 

@@ -27,10 +27,9 @@ function closeMobile() {
       <!-- Logo -->
       <RouterLink :to="{ name: 'about' }" class="flex-shrink-0" @click="closeMobile">
         <img
-          src="/brand/logo-dark.png"
+          src="/brand/icon-gold.png"
           alt="Dupla de Milheiros"
           class="h-8 w-auto object-contain sm:h-9"
-          style="max-width: 160px"
         />
       </RouterLink>
 
