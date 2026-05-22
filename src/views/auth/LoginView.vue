@@ -9,6 +9,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { extractFieldErrors, parseDRFError } from '@/utils/errors.js'
 import AppInput from '@/components/ui/AppInput.vue'
 import AppButton from '@/components/ui/AppButton.vue'
+import RevealSection from '@/components/ui/RevealSection.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -44,60 +45,70 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="flex min-h-[calc(100vh-65px)] items-center justify-center px-4">
-    <div class="w-full max-w-sm">
+  <div class="relative flex min-h-[calc(100vh-65px)] items-center justify-center overflow-hidden bg-slate-50 px-4 py-8 sm:py-16 dark:bg-dm-navy-900">
+    <!-- Glow decorativo -->
+    <div class="pointer-events-none absolute left-1/2 top-0 h-64 w-96 -translate-x-1/2 rounded-full bg-dm-gold/6 blur-3xl dark:bg-dm-gold/8" />
+
+    <RevealSection animation="up" class="relative z-10 w-full max-w-sm">
+
+      <!-- Logo + cabeçalho -->
       <div class="mb-8 text-center">
-        <!-- Logo mark -->
-        <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-navy-900" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-          </svg>
-        </div>
-        <h1 class="text-2xl font-bold text-navy-900 dark:text-cream-50">Entrar na plataforma</h1>
-        <p class="mt-2 text-sm text-gray-500 dark:text-navy-300">Acesse sua conta para continuar aprendendo</p>
+        <RouterLink :to="{ name: 'about' }">
+          <img
+            src="/brand/logo-dark.png"
+            alt="Dupla de Milheiros"
+            class="mx-auto mb-6 h-10 w-auto object-contain"
+            style="max-width: 160px"
+          />
+        </RouterLink>
+        <h1 class="font-display text-2xl font-bold text-dm-navy-900 dark:text-white">Entrar na sua conta</h1>
+        <p class="mt-2 text-sm text-slate-500 dark:text-dm-navy-200">Acesse e continue aprendendo</p>
       </div>
 
-      <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
-        <AppInput
-          id="email"
-          v-model="email"
-          label="E-mail"
-          type="email"
-          placeholder="seu@email.com"
-          autocomplete="email"
-          :error="emailError"
-        />
+      <!-- Card do formulário -->
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 dark:border-white/8 dark:bg-white/4 dark:shadow-black/30 dark:backdrop-blur-sm">
+        <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
+          <AppInput
+            id="email"
+            v-model="email"
+            label="E-mail"
+            type="email"
+            placeholder="seu@email.com"
+            autocomplete="email"
+            :error="emailError"
+          />
 
-        <AppInput
-          id="password"
-          v-model="password"
-          label="Senha"
-          type="password"
-          placeholder="••••••••"
-          autocomplete="current-password"
-          :error="passwordError"
-        />
+          <AppInput
+            id="password"
+            v-model="password"
+            label="Senha"
+            type="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            :error="passwordError"
+          />
 
-        <p v-if="globalError" class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-950 dark:text-red-400">
-          {{ globalError }}
-        </p>
+          <p v-if="globalError" class="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
+            {{ globalError }}
+          </p>
 
-        <AppButton type="submit" :loading="isSubmitting" full>
-          {{ isSubmitting ? 'Entrando...' : 'Entrar' }}
-        </AppButton>
-      </form>
+          <AppButton type="submit" :loading="isSubmitting" full class="mt-1">
+            {{ isSubmitting ? 'Entrando...' : 'Entrar' }}
+          </AppButton>
+        </form>
+      </div>
 
       <!-- Separador -->
       <div class="mt-6 flex items-center gap-3">
-        <span class="flex-1 border-t border-cream-200 dark:border-navy-700" />
-        <span class="text-xs text-gray-400 dark:text-navy-400">ou</span>
-        <span class="flex-1 border-t border-cream-200 dark:border-navy-700" />
+        <span class="flex-1 border-t border-slate-200 dark:border-white/10" />
+        <span class="text-xs text-slate-400 dark:text-dm-navy-200">ou</span>
+        <span class="flex-1 border-t border-slate-200 dark:border-white/10" />
       </div>
 
       <!-- Botão Google -->
       <a
         href="https://api.nousflow.com.br/api/auth/google/"
-        class="mt-4 flex w-full items-center justify-center gap-3 rounded-md border border-cream-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-cream-100 dark:border-navy-600 dark:bg-navy-800 dark:text-navy-200 dark:hover:bg-navy-700"
+        class="mt-4 flex w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-dm-navy-100 dark:hover:bg-white/8"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 flex-shrink-0">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -108,12 +119,13 @@ const onSubmit = handleSubmit(async (values) => {
         Entrar com Google
       </a>
 
-      <p class="mt-6 text-center text-sm text-gray-500 dark:text-navy-300">
+      <p class="mt-6 text-center text-sm text-slate-500 dark:text-dm-navy-200">
         Não tem conta?
-        <RouterLink :to="{ name: 'register' }" class="font-semibold text-navy-900 hover:text-gold-600 dark:text-gold-400 dark:hover:text-gold-300">
-          Cadastre-se
+        <RouterLink :to="{ name: 'register' }" class="font-semibold text-dm-gold hover:underline">
+          Cadastre-se gratuitamente
         </RouterLink>
       </p>
-    </div>
+
+    </RevealSection>
   </div>
 </template>

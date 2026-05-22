@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  variant: { type: String, default: 'primary' }, // primary | secondary | ghost
+  variant: { type: String, default: 'primary' }, // primary | secondary | ghost | outline
   type: { type: String, default: 'button' },
   loading: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -13,14 +13,16 @@ defineProps({
     :type="type"
     :disabled="disabled || loading"
     :class="[
-      'inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+      'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
       full && 'w-full',
       variant === 'primary' &&
-        'bg-gold-500 text-navy-900 hover:bg-gold-400 focus-visible:ring-gold-500',
+        'bg-dm-gold text-dm-navy-900 shadow-md shadow-dm-gold/20 hover:bg-dm-gold-400 hover:shadow-dm-gold/30 focus-visible:ring-dm-gold',
       variant === 'secondary' &&
-        'border border-navy-200 bg-white text-navy-900 hover:bg-cream-100 focus-visible:ring-navy-400 dark:border-navy-600 dark:bg-navy-800 dark:text-cream-50 dark:hover:bg-navy-700',
+        'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 focus-visible:ring-slate-300 dark:border-white/10 dark:bg-white/5 dark:text-dm-navy-100 dark:hover:border-dm-gold/30 dark:hover:text-white dark:focus-visible:ring-dm-navy-200',
       variant === 'ghost' &&
-        'text-gray-600 hover:bg-cream-200 focus-visible:ring-navy-400 dark:text-navy-300 dark:hover:bg-navy-800 dark:hover:text-gold-400',
+        'text-slate-600 hover:bg-slate-50 hover:text-dm-navy-900 focus-visible:ring-slate-300 dark:text-dm-navy-200 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:ring-dm-navy-200',
+      variant === 'outline' &&
+        'border border-dm-gold/70 text-dm-gold hover:bg-dm-gold hover:text-dm-navy-900 focus-visible:ring-dm-gold',
     ]"
   >
     <svg

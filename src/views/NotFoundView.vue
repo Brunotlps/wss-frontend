@@ -7,9 +7,9 @@ const router = useRouter()
 
 <template>
   <div class="flex min-h-[60vh] flex-col items-center justify-center gap-4 text-center">
-    <p class="text-6xl font-bold text-cream-200 dark:text-navy-700">404</p>
-    <h1 class="text-2xl font-semibold text-navy-900 dark:text-cream-50">Página não encontrada</h1>
-    <p class="text-gray-500 dark:text-navy-300">O endereço que você acessou não existe.</p>
-    <AppButton @click="router.push({ name: 'about' })">Voltar ao início</AppButton>
+    <p class="font-display text-6xl font-bold text-slate-200 dark:text-dm-navy-700">404</p>
+    <h1 class="font-display text-2xl font-semibold text-dm-navy-900 dark:text-white">Página não encontrada</h1>
+    <p class="text-slate-500 dark:text-dm-navy-200">O endereço que você acessou não existe.</p>
+    <AppButton @click="router.push({ name: 'course-list' })">Voltar ao início</AppButton>
   </div>
 </template>

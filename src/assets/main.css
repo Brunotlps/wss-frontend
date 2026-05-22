@@ -1,35 +1,83 @@
 @import "tailwindcss";
 
-/* Dark mode: ativa quando a classe .dark está em um elemento ancestral */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Navy — Dupla de Milheiros, tema escuro */
-  --color-navy-950: #020215;
-  --color-navy-900: #060642;
-  --color-navy-800: #09095e;
-  --color-navy-700: #0d0d7a;
-  --color-navy-600: #141496;
-  --color-navy-500: #1e1eb0;
-  --color-navy-400: #3d3dcc;
-  --color-navy-300: #6868dd;
-  --color-navy-200: #9898ee;
-  --color-navy-100: #c8c8f5;
-  --color-navy-50:  #f0f0ff;
+  /* ── Dupla de Milheiros — paleta oficial ── */
+  --color-dm-navy-900: #060642;
+  --color-dm-navy-800: #09095e;
+  --color-dm-navy-700: #0d0d7a;
+  --color-dm-navy-600: #1a1a9a;
+  --color-dm-navy-200: #9898ee;
+  --color-dm-navy-100: #c4c4f4;
+  --color-dm-blue:     #0339bf;
+  --color-dm-blue-400: #2554d6;
+  --color-dm-gold:     #ffd942;
+  --color-dm-gold-400: #ffe166;
+  --color-dm-cream:    #f7f7f7;
+  --color-dm-black:    #000000;
 
-  /* Gold — destaque Dupla de Milheiros */
-  --color-gold-700: #9e7800;
-  --color-gold-600: #c49600;
-  --color-gold-500: #ffd942;
-  --color-gold-400: #ffe166;
-  --color-gold-300: #ffe999;
-  --color-gold-200: #fff2cc;
-  --color-gold-100: #fff8e6;
-  --color-gold-50:  #fffdf5;
+  /* ── Tipografia ── */
+  --font-sans:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+}
 
-  /* Cream — tema claro */
-  --color-cream-50:  #fefefe;
-  --color-cream-100: #f7f7f7;
-  --color-cream-200: #ebebeb;
-  --color-cream-300: #d0d0d0;
+/* ── Scroll Reveal ── */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal-left  { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+.reveal-up    { transform: translateY(30px); }
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.reveal-delay-100 { transition-delay: 100ms; }
+.reveal-delay-200 { transition-delay: 200ms; }
+.reveal-delay-300 { transition-delay: 300ms; }
+.reveal-delay-400 { transition-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Hero glow — background-image only, bg-color vem do Tailwind ── */
+.hero-glow {
+  background-image: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgba(255, 217, 66, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+/* ── Text gradient gold ── */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffd942 0%, #ffe699 60%, #ffd942 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Card glow on hover (dark mode) ── */
+.card-glow {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.dark .card-glow:hover {
+  border-color: rgba(255, 217, 66, 0.25);
+  box-shadow: 0 8px 40px -8px rgba(255, 217, 66, 0.12);
+  transform: translateY(-3px);
+}
+
+/* ── Card lift (light mode) ── */
+.card-lift {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-lift:hover {
+  box-shadow: 0 8px 30px -4px rgba(6, 6, 66, 0.12);
+  transform: translateY(-3px);
 }
