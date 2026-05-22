@@ -1,11 +1,14 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { authService } from '@/services/authService.js'
+import { profileService } from '@/services/profileService.js'
 import { ACCESS_KEY, REFRESH_KEY } from '@/services/api.js'
+import { DEFAULT_PROFILE } from '@/utils/avatarOptions.js'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const accessToken = ref(null)
+  const profile = ref({ ...DEFAULT_PROFILE })
 
   const isAuthenticated = computed(() => !!accessToken.value)
 
@@ -17,6 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const { data } = await authService.getMe()
       user.value = data
+      profile.value = profileService.get(data.id)
     } catch {
       // Token inválido ou expirado — o interceptor de refresh cuidará disso
     }
@@ -30,6 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
     // Busca dados do usuário após login
     const me = await authService.getMe()
     user.value = me.data
+    profile.value = profileService.get(me.data.id)
   }
 
   async function register(userData) {
@@ -45,18 +50,27 @@ export const useAuthStore = defineStore('auth', () => {
     } finally {
       user.value = null
       accessToken.value = null
+      profile.value = { ...DEFAULT_PROFILE }
       localStorage.removeItem(ACCESS_KEY)
       localStorage.removeItem(REFRESH_KEY)
     }
   }
 
+  function updateProfile(next) {
+    if (!user.value?.id) return
+    profileService.set(user.value.id, next)
+    profile.value = { icon: next.icon, color: next.color }
+  }
+
   return {
     user,
     accessToken,
+    profile,
     isAuthenticated,
     initializeAuth,
     login,
     register,
     logout,
+    updateProfile,
   }
 })

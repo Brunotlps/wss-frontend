@@ -3,6 +3,10 @@ import { ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useRouter, useRoute } from 'vue-router'
 import { useTheme } from '@/composables/useTheme.js'
+import { DropdownMenuItem, DropdownMenuSeparator } from 'radix-vue'
+
+import AppDropdown from '@/components/ui/AppDropdown.vue'
+import UserAvatar from '@/components/ui/UserAvatar.vue'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -20,6 +24,10 @@ function handleLogout() {
 
 function closeMobile() {
   mobileOpen.value = false
+}
+
+function go(name) {
+  router.push({ name })
 }
 </script>
 
@@ -56,26 +64,66 @@ function closeMobile() {
         <span class="h-4 w-px bg-white/10" />
 
         <template v-if="auth.isAuthenticated">
-          <RouterLink
-            :to="{ name: 'dashboard' }"
-            class="text-sm font-medium text-dm-navy-100 transition-colors hover:text-dm-gold"
-            active-class="text-dm-gold"
-          >
-            Meus Cursos
-          </RouterLink>
-          <RouterLink
-            :to="{ name: 'certificates' }"
-            class="text-sm font-medium text-dm-navy-100 transition-colors hover:text-dm-gold"
-            active-class="text-dm-gold"
-          >
-            Certificados
-          </RouterLink>
-          <button
-            class="rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-dm-navy-200 transition-all hover:border-dm-gold/50 hover:text-dm-gold"
-            @click="handleLogout"
-          >
-            Sair
-          </button>
+          <!-- Avatar dropdown -->
+          <AppDropdown align="end">
+            <template #trigger>
+              <button
+                class="group flex items-center gap-2 rounded-full p-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-dm-gold"
+                aria-label="Menu do usuário"
+              >
+                <UserAvatar
+                  :icon="auth.profile.icon"
+                  :color="auth.profile.color"
+                  size="sm"
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-dm-navy-200 transition-colors group-hover:text-dm-gold"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </template>
+
+            <!-- Cabeçalho com nome -->
+            <div v-if="auth.user" class="px-3 py-2.5">
+              <p class="text-sm font-semibold text-dm-navy-900 dark:text-white">
+                {{ auth.user.first_name }} {{ auth.user.last_name }}
+              </p>
+              <p class="truncate text-xs text-slate-500 dark:text-dm-navy-200">{{ auth.user.email }}</p>
+            </div>
+
+            <DropdownMenuSeparator class="my-1 h-px bg-slate-200 dark:bg-white/10" />
+
+            <DropdownMenuItem
+              class="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none transition-colors data-[highlighted]:bg-slate-100 dark:text-dm-navy-100 dark:data-[highlighted]:bg-white/5"
+              @select="go('dashboard')"
+            >
+              Meus Cursos
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              class="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none transition-colors data-[highlighted]:bg-slate-100 dark:text-dm-navy-100 dark:data-[highlighted]:bg-white/5"
+              @select="go('certificates')"
+            >
+              Certificados
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              class="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none transition-colors data-[highlighted]:bg-slate-100 dark:text-dm-navy-100 dark:data-[highlighted]:bg-white/5"
+              @select="go('profile')"
+            >
+              Perfil
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator class="my-1 h-px bg-slate-200 dark:bg-white/10" />
+
+            <DropdownMenuItem
+              class="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none transition-colors data-[highlighted]:bg-slate-100 dark:text-dm-navy-100 dark:data-[highlighted]:bg-white/5"
+              @select="handleLogout"
+            >
+              Sair
+            </DropdownMenuItem>
+          </AppDropdown>
         </template>
         <template v-else>
           <RouterLink
@@ -158,6 +206,17 @@ function closeMobile() {
         <div class="my-2 h-px bg-white/5" />
 
         <template v-if="auth.isAuthenticated">
+          <!-- Cartão de identidade do aluno -->
+          <div class="mb-1 flex items-center gap-3 rounded-xl px-4 py-3">
+            <UserAvatar :icon="auth.profile.icon" :color="auth.profile.color" size="md" />
+            <div class="min-w-0">
+              <p class="truncate text-sm font-semibold text-white">
+                {{ auth.user?.first_name }} {{ auth.user?.last_name }}
+              </p>
+              <p class="truncate text-xs text-dm-navy-200">{{ auth.user?.email }}</p>
+            </div>
+          </div>
+
           <RouterLink
             :to="{ name: 'dashboard' }"
             class="rounded-xl px-4 py-2.5 text-sm font-medium text-dm-navy-100 transition-colors hover:bg-white/5 hover:text-dm-gold"
@@ -170,6 +229,12 @@ function closeMobile() {
             active-class="text-dm-gold bg-white/5"
             @click="closeMobile"
           >Certificados</RouterLink>
+          <RouterLink
+            :to="{ name: 'profile' }"
+            class="rounded-xl px-4 py-2.5 text-sm font-medium text-dm-navy-100 transition-colors hover:bg-white/5 hover:text-dm-gold"
+            active-class="text-dm-gold bg-white/5"
+            @click="closeMobile"
+          >Perfil</RouterLink>
           <button
             class="mt-1 rounded-xl px-4 py-2.5 text-left text-sm font-medium text-dm-navy-200 transition-colors hover:bg-white/5 hover:text-dm-gold"
             @click="handleLogout"
