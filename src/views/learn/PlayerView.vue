@@ -210,7 +210,7 @@ onUnmounted(() => {
           <!-- Agrupado por módulo -->
           <template v-if="groupedSidebar">
             <div v-for="group in groupedSidebar" :key="group.id ?? '__none__'">
-              <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-navy-500">
+              <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-dm-navy-200/70">
                 {{ group.title }}
               </p>
               <LessonItem
@@ -295,7 +295,7 @@ onUnmounted(() => {
           <!-- Agrupado por módulo -->
           <template v-if="groupedSidebar">
             <div v-for="group in groupedSidebar" :key="group.id ?? '__none__'">
-              <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-navy-500">
+              <p class="px-4 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-dm-navy-200/70">
                 {{ group.title }}
               </p>
               <LessonItem
