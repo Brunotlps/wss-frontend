@@ -14,11 +14,11 @@ function formatDate(isoString) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 rounded-2xl bg-dm-navy-900 p-5">
+  <div class="card-glow flex flex-col gap-4 rounded-2xl border border-white/8 bg-white/3 p-5">
     <!-- Ícone + título -->
     <div class="flex items-start justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-dm-gold/10">
+        <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-dm-gold/15 shadow-lg shadow-dm-gold/10">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-dm-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
           </svg>
@@ -31,25 +31,25 @@ function formatDate(isoString) {
 
       <span
         v-if="!certificate.is_valid"
-        class="flex-shrink-0 rounded-full bg-red-900/30 px-2 py-0.5 text-xs font-medium text-red-400"
+        class="flex-shrink-0 rounded-full bg-red-900/30 px-2.5 py-0.5 text-xs font-medium text-red-400"
       >
         Revogado
       </span>
     </div>
 
     <!-- Detalhes -->
-    <div class="space-y-1 border-t border-dm-navy-700 pt-3 text-sm text-dm-navy-200">
+    <div class="space-y-1.5 border-t border-white/8 pt-3 text-sm text-dm-navy-200">
       <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-dm-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-dm-gold/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
         <span>Emitido em {{ formatDate(certificate.issued_at) }}</span>
       </div>
       <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-dm-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-dm-gold/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
         </svg>
-        <span class="font-mono text-xs">{{ certificate.certificate_code }}</span>
+        <span class="font-mono text-xs tracking-wider">{{ certificate.certificate_code }}</span>
       </div>
     </div>
 
@@ -58,7 +58,7 @@ function formatDate(isoString) {
       :href="certificate.pdf_url"
       target="_blank"
       rel="noopener noreferrer"
-      class="flex items-center justify-center gap-2 rounded-full bg-dm-gold px-4 py-2 text-sm font-semibold text-dm-navy-900 transition-opacity hover:opacity-90"
+      class="flex items-center justify-center gap-2 rounded-full bg-dm-gold px-4 py-2.5 text-sm font-semibold text-dm-navy-900 shadow-lg shadow-dm-gold/20 transition-all hover:bg-dm-gold-400"
       :class="{ 'pointer-events-none opacity-40': !certificate.is_valid }"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

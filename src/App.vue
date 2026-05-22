@@ -26,7 +26,7 @@ onMounted(async () => {
 
 <template>
   <Toaster position="top-right" rich-colors />
-  <div class="flex min-h-screen flex-col bg-dm-cream font-sans transition-colors duration-300 dark:bg-dm-navy-900">
+  <div class="flex min-h-screen flex-col bg-dm-navy-900 font-sans">
     <div
       v-if="backendOffline"
       class="flex items-center justify-center gap-2 bg-dm-gold/10 px-4 py-2 text-sm text-dm-gold"

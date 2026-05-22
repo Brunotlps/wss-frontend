@@ -68,7 +68,7 @@ function totalLessons(course) {
   <PageWrapper :full="true">
 
     <!-- ── Skeleton ── -->
-    <div v-if="store.loading" class="bg-dm-navy-900 px-4 py-16 sm:px-6 lg:px-8">
+    <div v-if="store.loading" class="px-4 py-20 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-6xl animate-pulse space-y-6">
         <div class="h-5 w-32 rounded-full bg-dm-navy-700" />
         <div class="h-9 w-3/4 rounded-lg bg-dm-navy-700" />
@@ -78,7 +78,7 @@ function totalLessons(course) {
     </div>
 
     <!-- ── Erro ── -->
-    <div v-else-if="store.error" class="flex flex-col items-center gap-4 bg-dm-navy-900 py-24 text-center">
+    <div v-else-if="store.error" class="flex flex-col items-center gap-4 py-24 text-center">
       <p class="text-dm-navy-200">{{ store.error }}</p>
       <AppButton @click="store.fetchCourse(route.params.id)">Tentar novamente</AppButton>
     </div>
@@ -87,7 +87,7 @@ function totalLessons(course) {
     <template v-else-if="store.currentCourse">
 
       <!-- Hero do curso -->
-      <section class="bg-dm-navy-900 px-4 pb-0 pt-10 sm:px-6 lg:px-8">
+      <section class="hero-glow px-4 pb-10 pt-16 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-6xl">
 
           <!-- Breadcrumb -->
@@ -134,7 +134,7 @@ function totalLessons(course) {
 
             <!-- Card de compra sticky (desktop) -->
             <div class="hidden lg:block">
-              <div class="sticky top-24 overflow-hidden rounded-2xl border border-dm-navy-700 bg-dm-navy-800">
+              <div class="sticky top-24 overflow-hidden rounded-2xl border border-white/10 bg-white/4 shadow-2xl shadow-black/40 backdrop-blur-sm">
                 <div class="p-6">
                   <p class="font-display text-3xl font-bold text-white">
                     {{ isFree ? 'Gratuito' : formatCurrency(store.currentCourse.price) }}
@@ -183,7 +183,8 @@ function totalLessons(course) {
       </section>
 
       <!-- ── Detalhes ── -->
-      <section class="bg-dm-navy-800 px-4 py-14 sm:px-6 lg:px-8">
+      <div class="section-divider mx-auto max-w-6xl" />
+      <section class="px-4 py-14 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-6xl lg:grid lg:grid-cols-3 lg:gap-12">
           <div class="lg:col-span-2 space-y-10">
 
@@ -205,15 +206,15 @@ function totalLessons(course) {
                 <div
                   v-for="module in store.currentCourse.modules"
                   :key="module.id"
-                  class="overflow-hidden rounded-xl border border-dm-navy-700"
+                  class="overflow-hidden rounded-xl border border-white/8"
                 >
-                  <div class="flex items-center justify-between bg-dm-navy-900 px-4 py-3">
+                  <div class="flex items-center justify-between bg-white/3 px-4 py-3">
                     <span class="font-medium text-dm-navy-100">{{ module.title }}</span>
                     <span v-if="module.lessons?.length" class="text-xs text-dm-navy-200">
                       {{ module.lessons.length }} {{ module.lessons.length === 1 ? 'aula' : 'aulas' }}
                     </span>
                   </div>
-                  <ul v-if="module.lessons?.length" class="divide-y divide-dm-navy-700">
+                  <ul v-if="module.lessons?.length" class="divide-y divide-white/5">
                     <li
                       v-for="lesson in module.lessons"
                       :key="lesson.id"
@@ -235,7 +236,7 @@ function totalLessons(course) {
               <h2 class="mb-4 font-display text-xl font-bold text-white">
                 Aulas <span class="ml-2 text-sm font-normal text-dm-navy-200">({{ store.currentCourse.lessons.length }})</span>
               </h2>
-              <ul class="divide-y divide-dm-navy-700 overflow-hidden rounded-xl border border-dm-navy-700">
+              <ul class="divide-y divide-white/5 overflow-hidden rounded-xl border border-white/8">
                 <li
                   v-for="lesson in store.currentCourse.lessons"
                   :key="lesson.id"
@@ -258,7 +259,7 @@ function totalLessons(course) {
       </section>
 
       <!-- ── CTA mobile ── -->
-      <section class="sticky bottom-0 border-t border-dm-navy-700 bg-dm-navy-900 px-4 py-4 lg:hidden">
+      <section class="sticky bottom-0 border-t border-white/8 bg-dm-navy-900/95 px-4 py-4 backdrop-blur-sm lg:hidden">
         <div class="flex items-center justify-between gap-4">
           <p class="font-display text-xl font-bold text-white">
             {{ isFree ? 'Gratuito' : formatCurrency(store.currentCourse.price) }}

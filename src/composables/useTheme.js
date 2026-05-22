@@ -1,26 +1,9 @@
-import { ref, watch } from 'vue'
-
-const STORAGE_KEY = 'nousflow-theme'
-
-// Singleton — estado compartilhado entre todos os componentes
-const isDark = ref(localStorage.getItem(STORAGE_KEY) !== 'light')
-
-watch(
-  isDark,
-  (dark) => {
-    localStorage.setItem(STORAGE_KEY, dark ? 'dark' : 'light')
-    if (dark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  },
-  { immediate: true },
-)
+// Dark-only — the brand is always navy/gold
+document.documentElement.classList.add('dark')
 
 export function useTheme() {
-  function toggle() {
-    isDark.value = !isDark.value
+  return {
+    isDark: { value: true },
+    toggle: () => {},
   }
-  return { isDark, toggle }
 }

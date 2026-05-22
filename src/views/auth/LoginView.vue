@@ -45,8 +45,12 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="flex min-h-[calc(100vh-65px)] items-center justify-center bg-dm-navy-900 px-4 py-12">
-    <RevealSection animation="up" class="w-full max-w-sm">
+  <div class="relative flex min-h-[calc(100vh-65px)] items-center justify-center overflow-hidden px-4 py-16">
+    <!-- Glow de fundo -->
+    <div class="pointer-events-none absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-dm-gold/8 blur-3xl" />
+    <div class="pointer-events-none absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-dm-navy-700/40 blur-3xl" />
+
+    <RevealSection animation="up" class="relative z-10 w-full max-w-sm">
 
       <!-- Logo + cabeçalho -->
       <div class="mb-8 text-center">
@@ -57,40 +61,43 @@ const onSubmit = handleSubmit(async (values) => {
         <p class="mt-2 text-sm text-dm-navy-200">Acesse e continue aprendendo</p>
       </div>
 
-      <form class="flex flex-col gap-4" @submit.prevent="onSubmit">
-        <AppInput
-          id="email"
-          v-model="email"
-          label="E-mail"
-          type="email"
-          placeholder="seu@email.com"
-          autocomplete="email"
-          :error="emailError"
-        />
+      <!-- Card do formulário -->
+      <div class="rounded-2xl border border-white/8 bg-white/4 p-8 shadow-2xl shadow-black/40 backdrop-blur-sm">
+        <form class="flex flex-col gap-5" @submit.prevent="onSubmit">
+          <AppInput
+            id="email"
+            v-model="email"
+            label="E-mail"
+            type="email"
+            placeholder="seu@email.com"
+            autocomplete="email"
+            :error="emailError"
+          />
 
-        <AppInput
-          id="password"
-          v-model="password"
-          label="Senha"
-          type="password"
-          placeholder="••••••••"
-          autocomplete="current-password"
-          :error="passwordError"
-        />
+          <AppInput
+            id="password"
+            v-model="password"
+            label="Senha"
+            type="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            :error="passwordError"
+          />
 
-        <p v-if="globalError" class="rounded-xl bg-red-900/30 px-4 py-2.5 text-sm text-red-400">
-          {{ globalError }}
-        </p>
+          <p v-if="globalError" class="rounded-xl bg-red-900/30 px-4 py-2.5 text-sm text-red-400">
+            {{ globalError }}
+          </p>
 
-        <AppButton type="submit" :loading="isSubmitting" full class="mt-1">
-          {{ isSubmitting ? 'Entrando...' : 'Entrar' }}
-        </AppButton>
-      </form>
+          <AppButton type="submit" :loading="isSubmitting" full class="mt-1">
+            {{ isSubmitting ? 'Entrando...' : 'Entrar' }}
+          </AppButton>
+        </form>
+      </div>
 
       <p class="mt-6 text-center text-sm text-dm-navy-200">
         Não tem conta?
         <RouterLink :to="{ name: 'register' }" class="font-semibold text-dm-gold hover:underline">
-          Cadastre-se
+          Cadastre-se gratuitamente
         </RouterLink>
       </p>
 

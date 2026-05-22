@@ -176,7 +176,7 @@ onUnmounted(() => {
       </div>
 
       <!-- Lista de aulas colapsável (mobile only) -->
-      <details class="lg:hidden border-t border-dm-navy-700 bg-dm-navy-800">
+      <details class="lg:hidden border-t border-white/8 bg-dm-navy-900">
         <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-white [&::-webkit-details-marker]:hidden">
           <span class="font-medium">Conteúdo do curso</span>
           <div class="flex items-center gap-2 text-xs text-dm-navy-200">
@@ -199,7 +199,7 @@ onUnmounted(() => {
       </details>
 
       <!-- Info da aula + navegação -->
-      <div class="bg-dm-navy-800 p-6">
+      <div class="border-t border-white/5 bg-dm-navy-900 p-6">
         <!-- Breadcrumb / título do curso -->
         <button
           class="mb-4 flex items-center gap-1.5 text-sm text-dm-navy-200 hover:text-dm-gold transition-colors"
@@ -244,9 +244,9 @@ onUnmounted(() => {
 
     <!-- Sidebar: lista de aulas -->
     <div class="hidden w-80 flex-shrink-0 lg:block">
-      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-dm-navy-700 bg-dm-navy-800">
+      <div class="sticky top-0 flex max-h-screen flex-col overflow-hidden border-l border-white/8 bg-dm-navy-900">
         <!-- Cabeçalho da sidebar -->
-        <div class="border-b border-dm-navy-700 px-4 py-4">
+        <div class="border-b border-white/8 px-4 py-4">
           <p class="font-display font-medium text-white">Conteúdo do curso</p>
           <p class="mt-0.5 text-xs text-dm-navy-200">{{ lessons.length }} {{ lessons.length === 1 ? 'aula' : 'aulas' }}</p>
         </div>

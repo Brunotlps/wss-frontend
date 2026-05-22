@@ -16,13 +16,13 @@ defineProps({
       'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
       full && 'w-full',
       variant === 'primary' &&
-        'bg-dm-gold text-dm-navy-900 hover:bg-dm-gold-400 focus-visible:ring-dm-gold',
+        'bg-dm-gold text-dm-navy-900 shadow-md shadow-dm-gold/20 hover:bg-dm-gold-400 hover:shadow-dm-gold/30 focus-visible:ring-dm-gold',
       variant === 'secondary' &&
-        'bg-dm-navy-800 text-dm-navy-100 hover:bg-dm-navy-700 focus-visible:ring-dm-navy-200 dark:bg-dm-navy-800 dark:text-dm-navy-100',
+        'border border-white/10 bg-white/5 text-dm-navy-100 hover:border-dm-gold/30 hover:text-white focus-visible:ring-dm-navy-200',
       variant === 'ghost' &&
-        'text-dm-navy-200 hover:bg-dm-navy-800 hover:text-white focus-visible:ring-dm-navy-200 dark:text-dm-navy-200',
+        'text-dm-navy-200 hover:bg-white/5 hover:text-white focus-visible:ring-dm-navy-200',
       variant === 'outline' &&
-        'border border-dm-gold text-dm-gold hover:bg-dm-gold hover:text-dm-navy-900 focus-visible:ring-dm-gold',
+        'border border-dm-gold/70 text-dm-gold hover:bg-dm-gold hover:text-dm-navy-900 focus-visible:ring-dm-gold',
     ]"
   >
     <svg

@@ -151,7 +151,7 @@ onUnmounted(() => {
 
 <template>
   <PageWrapper :full="true">
-    <section class="min-h-[calc(100vh-4rem)] bg-dm-navy-800 px-4 py-12 sm:px-6 lg:px-8">
+    <section class="min-h-[calc(100vh-4rem)] px-4 py-16 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-lg">
         <h1 class="mb-8 font-display text-2xl font-bold text-white">Finalizar compra</h1>
 
@@ -189,7 +189,7 @@ onUnmounted(() => {
         <!-- Formulário de pagamento e estados de polling/processing -->
         <div v-else>
           <!-- Resumo do curso -->
-          <div v-if="course" class="mb-6 flex items-center gap-4 rounded-xl border border-dm-navy-700 bg-dm-navy-900 p-4">
+          <div v-if="course" class="mb-6 flex items-center gap-4 rounded-xl border border-white/8 bg-white/3 p-4">
             <img
               v-if="course.thumbnail"
               :src="course.thumbnail"
@@ -206,7 +206,7 @@ onUnmounted(() => {
           </div>
 
           <!-- Stripe Card Element -->
-          <div class="mb-6 rounded-xl border border-dm-navy-700 bg-dm-navy-900 p-5">
+          <div class="mb-6 rounded-xl border border-white/8 bg-white/3 p-5">
             <p class="mb-4 text-sm font-medium text-dm-navy-200">Dados do cartão</p>
             <div id="stripe-card-element" class="rounded-lg border border-dm-navy-700 bg-white px-3 py-3" />
             <p v-if="errorMessage" class="mt-3 text-sm text-red-400">{{ errorMessage }}</p>
