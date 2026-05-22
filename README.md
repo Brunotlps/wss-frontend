@@ -1,4 +1,4 @@
-# NousFlow — Frontend
+# Dupla de Milheiros — Frontend
 
 > A modern, theme-aware Vue 3 frontend for the NousFlow online learning platform.
 
@@ -13,7 +13,7 @@
 
 ## About the Project
 
-**NousFlow** is a focused online learning platform built for small course creators who want a clean, community-driven alternative to mainstream course marketplaces. This repository is the frontend — a Vue 3 single-page application that consumes the [NousFlow backend API](https://github.com/Brunotlps/wss-backend-v0).
+**Dupla de Milheiros** is a focused online learning platform built for small course creators who want a clean, community-driven alternative to mainstream course marketplaces. This repository is the frontend — a Vue 3 single-page application that consumes the [Dupla de Milheiros backend API](https://github.com/Brunotlps/wss-backend-v0).
 
 The project started from a real need: a couple of friends — *Dupla de Milheiros* — who teach personal finance and travel hacking with airline miles, wanted a platform to host their first paid course. What began as a single-tenant solution evolved into an independent platform with a long-term vision centered on **community and learning enhancement** — not just a video catalog.
 
@@ -231,7 +231,7 @@ npm run build
 
 ## About the Author
 
-Built and maintained by **Bruno Teixeira Lopes** — a developer from Brazil focused on building real, maintainable systems. NousFlow is the project where full-stack engineering meets a real product vision: from Django signals and Celery tasks on the backend, to Vue composables and Stripe flows on the frontend.
+Built and maintained by **Bruno Teixeira Lopes** — a developer from Brazil focused on building real, maintainable systems. Dupla de Milheiros is the project where full-stack engineering meets a real product vision: from Django signals and Celery tasks on the backend, to Vue composables and Stripe flows on the frontend.
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/Brunotlps)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/brunotlps)

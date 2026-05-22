@@ -11,10 +11,12 @@ import { formatCents } from '@/utils/formatters.js'
 import { parseDRFError } from '@/utils/errors.js'
 import AppButton from '@/components/ui/AppButton.vue'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
+import { useTheme } from '@/composables/useTheme.js'
 
 const route = useRoute()
 const router = useRouter()
 const courseId = Number(route.params.courseId)
+const { isDark } = useTheme()
 
 // — Estado da máquina de estados do checkout
 // loading | ready | processing | polling | timeout | error
@@ -58,12 +60,11 @@ async function initCheckout() {
     const detail = typeof data?.detail === 'string' ? data.detail : ''
 
     if (error.response?.status === 400 && detail.toLowerCase().includes('matriculado')) {
-      toast.info('Você já está matriculado neste curso.')
+      toast.info('Você já está matriculado', { description: 'Redirecionando para o dashboard.' })
       router.push({ name: 'dashboard' })
       return
     }
 
-    // Mensagem legível para erros de inicialização do Stripe (sem error.response)
     if (!error.response) {
       errorMessage.value = error.message || 'Não foi possível carregar o formulário de pagamento.'
     } else {
@@ -84,9 +85,9 @@ async function mountStripeElements() {
     style: {
       base: {
         fontSize: '16px',
-        color: '#111827',
+        color: isDark.value ? '#f7f7f7' : '#111827',
         fontFamily: 'ui-sans-serif, system-ui, sans-serif',
-        '::placeholder': { color: '#9ca3af' },
+        '::placeholder': { color: isDark.value ? '#9898ee' : '#9ca3af' },
       },
       invalid: { color: '#ef4444' },
     },
@@ -114,7 +115,7 @@ async function handleSubmit() {
     const enrollment = await pollForEnrollment()
 
     if (enrollment) {
-      toast.success('Matrícula confirmada! Bom aprendizado.')
+      toast.success('Matrícula confirmada!', { description: 'Bom aprendizado. Seu progresso é salvo automaticamente.' })
       router.push({ name: 'player', params: { enrollmentId: enrollment.id } })
     } else {
       status.value = 'timeout'

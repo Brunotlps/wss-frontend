@@ -8,4 +8,8 @@ export const courseService = {
   getCourse(id) {
     return api.get(`/api/courses/${id}/`)
   },
+
+  getCourseModules(id) {
+    return api.get(`/api/courses/${id}/modules/`)
+  },
 }

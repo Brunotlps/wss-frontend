@@ -1,13 +1,18 @@
 <script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useTheme } from '@/composables/useTheme.js'
 
 const auth = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 const { isDark, toggle } = useTheme()
 const mobileOpen = ref(false)
+
+const mobileMenuOpen = ref(false)
+
+watch(() => route.path, () => { mobileMenuOpen.value = false })
 
 function handleLogout() {
   auth.logout()
@@ -47,7 +52,7 @@ function closeMobile() {
           class="text-sm font-medium text-dm-navy-100 transition-colors hover:text-dm-gold"
           active-class="text-dm-gold"
         >
-          Sobre nós
+          Sobre a Dupla
         </RouterLink>
 
         <span class="h-4 w-px bg-white/10" />

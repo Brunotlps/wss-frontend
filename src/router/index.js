@@ -21,6 +21,20 @@ const router = createRouter({
       component: () => import('@/views/courses/CourseDetailView.vue'),
     },
 
+    // OAuth callbacks — sem guestOnly para não bloquear antes de processar os tokens
+    {
+      path: '/auth/callback',
+      name: 'google-callback',
+      component: () => import('@/views/auth/GoogleCallbackView.vue'),
+      meta: { guestOnly: false, hideFooter: true },
+    },
+    {
+      path: '/auth/error',
+      name: 'auth-error',
+      component: () => import('@/views/auth/GoogleCallbackView.vue'),
+      meta: { guestOnly: false, hideFooter: true },
+    },
+
     // Apenas visitantes (redireciona autenticados)
     {
       path: '/login',

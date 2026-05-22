@@ -36,10 +36,10 @@ api.interceptors.response.use(
     const original = error.config
 
     const is401 = error.response?.status === 401
-    const isRefreshEndpoint = original.url?.includes('/api/auth/token/refresh/')
+    const isAuthEndpoint = original.url?.includes('/api/auth/')
     const alreadyRetried = original._retry
 
-    if (!is401 || isRefreshEndpoint || alreadyRetried) {
+    if (!is401 || isAuthEndpoint || alreadyRetried) {
       return Promise.reject(error)
     }
 

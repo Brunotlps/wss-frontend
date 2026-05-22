@@ -4,13 +4,14 @@ import { useRoute } from 'vue-router'
 import { Toaster } from 'vue-sonner'
 import { useAuthStore } from '@/stores/auth.js'
 import { useTheme } from '@/composables/useTheme.js'
+
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import api from '@/services/api.js'
 
 const auth = useAuthStore()
 const route = useRoute()
-useTheme() // inicializa e aplica a classe .dark no <html>
+const { isDark } = useTheme()
 
 const backendOffline = ref(false)
 
