@@ -7,6 +7,7 @@ import { useTheme } from '@/composables/useTheme.js'
 
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import AppAlert from '@/components/ui/AppAlert.vue'
 import api from '@/services/api.js'
 
 const auth = useAuthStore()
@@ -28,15 +29,9 @@ onMounted(async () => {
 <template>
   <Toaster position="top-right" rich-colors />
   <div class="flex min-h-screen flex-col bg-white font-sans dark:bg-dm-navy-900">
-    <div
-      v-if="backendOffline"
-      class="flex items-center justify-center gap-2 bg-dm-gold/10 px-4 py-2 text-sm text-dm-gold"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z" />
-      </svg>
+    <AppAlert v-if="backendOffline" variant="warning" dismissible class="rounded-none border-l-0">
       Serviço temporariamente indisponível. Algumas funcionalidades podem não estar acessíveis.
-    </div>
+    </AppAlert>
     <AppHeader />
     <main class="flex-1">
       <RouterView />
