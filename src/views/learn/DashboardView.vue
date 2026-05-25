@@ -8,6 +8,7 @@ import { parseDRFError } from '@/utils/errors.js'
 
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import AppButton from '@/components/ui/AppButton.vue'
+import AppAlert from '@/components/ui/AppAlert.vue'
 import CourseProgress from '@/components/course/CourseProgress.vue'
 import RevealSection from '@/components/ui/RevealSection.vue'
 import UserAvatar from '@/components/ui/UserAvatar.vue'
@@ -140,8 +141,10 @@ onMounted(async () => {
         </div>
 
         <!-- Erro -->
-        <div v-else-if="error" class="flex flex-col items-center gap-3 py-24 text-center">
-          <p class="text-slate-500 dark:text-dm-navy-200">{{ error }}</p>
+        <div v-else-if="error" class="flex flex-col items-center gap-4 py-24">
+          <AppAlert variant="error" class="w-full max-w-md">
+            {{ error }}
+          </AppAlert>
           <AppButton variant="secondary" @click="router.go(0)">Tentar novamente</AppButton>
         </div>
 
