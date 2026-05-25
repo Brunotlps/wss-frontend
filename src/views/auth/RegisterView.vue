@@ -9,6 +9,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { extractFieldErrors, parseDRFError } from '@/utils/errors.js'
 import AppInput from '@/components/ui/AppInput.vue'
 import AppButton from '@/components/ui/AppButton.vue'
+import AppAlert from '@/components/ui/AppAlert.vue'
 import RevealSection from '@/components/ui/RevealSection.vue'
 
 const router = useRouter()
@@ -92,9 +93,9 @@ const onSubmit = handleSubmit(async (values) => {
           <AppInput id="password" v-model="password" label="Senha" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" :error="passwordError" />
           <AppInput id="password_confirm" v-model="password_confirm" label="Confirmar senha" type="password" placeholder="Repita a senha" autocomplete="new-password" :error="passwordConfirmError" />
 
-          <p v-if="globalError" class="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600 dark:bg-red-900/30 dark:text-red-400">
+          <AppAlert v-if="globalError" variant="error">
             {{ globalError }}
-          </p>
+          </AppAlert>
 
           <AppButton type="submit" :loading="isSubmitting" full class="mt-1">
             {{ isSubmitting ? 'Criando conta...' : 'Criar conta' }}
