@@ -27,7 +27,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Toaster position="top-right" rich-colors />
+  <Toaster position="top-right" rich-colors :theme="isDark ? 'dark' : 'light'" />
   <div class="flex min-h-screen flex-col bg-white font-sans dark:bg-dm-navy-900">
     <AppAlert v-if="backendOffline" variant="warning" dismissible class="rounded-none border-l-0">
       Serviço temporariamente indisponível. Algumas funcionalidades podem não estar acessíveis.
