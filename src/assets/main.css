@@ -81,3 +81,9 @@
   box-shadow: 0 8px 30px -4px rgba(6, 6, 66, 0.12);
   transform: translateY(-3px);
 }
+
+/* ── Toast (vue-sonner) — hide default icons and close button ── */
+[data-sonner-toast] [data-icon],
+[data-sonner-toast] [data-close-button] {
+  display: none !important;
+}
