@@ -1,11 +1,12 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { toast } from 'vue-sonner'
 import { useAuthStore } from '@/stores/auth.js'
+import { useToast } from '@/composables/useToast.js'
 import { ACCESS_KEY, REFRESH_KEY } from '@/services/api.js'
 
 const router = useRouter()
+const toast = useToast()
 const auth = useAuthStore()
 
 onMounted(async () => {
