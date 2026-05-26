@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { loadStripe } from '@stripe/stripe-js'
-import { toast } from 'vue-sonner'
 
 import { paymentService } from '@/services/paymentService.js'
 import { enrollmentService } from '@/services/enrollmentService.js'
@@ -13,11 +12,13 @@ import AppButton from '@/components/ui/AppButton.vue'
 import AppAlert from '@/components/ui/AppAlert.vue'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import { useTheme } from '@/composables/useTheme.js'
+import { useToast } from '@/composables/useToast.js'
 
 const route = useRoute()
 const router = useRouter()
 const courseId = Number(route.params.courseId)
 const { isDark } = useTheme()
+const toast = useToast()
 
 // — Estado da máquina de estados do checkout
 // loading | ready | processing | polling | timeout | error
