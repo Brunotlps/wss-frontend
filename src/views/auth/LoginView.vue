@@ -3,14 +3,13 @@ import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
-import { toast } from 'vue-sonner'
-
 import { useAuthStore } from '@/stores/auth.js'
 import { extractFieldErrors, parseDRFError } from '@/utils/errors.js'
 import AppInput from '@/components/ui/AppInput.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import AppAlert from '@/components/ui/AppAlert.vue'
 import RevealSection from '@/components/ui/RevealSection.vue'
+import { useToast } from '@/composables/useToast.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -25,6 +24,7 @@ const { handleSubmit, isSubmitting, setErrors } = useForm({ validationSchema: sc
 const { value: email, errorMessage: emailError } = useField('email')
 const { value: password, errorMessage: passwordError } = useField('password')
 
+const toast = useToast()
 const globalError = ref('')
 
 const onSubmit = handleSubmit(async (values) => {
