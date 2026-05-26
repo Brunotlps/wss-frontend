@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { toast } from 'vue-sonner'
 import { useAuthStore } from '@/stores/auth.js'
+import { useToast } from '@/composables/useToast.js'
 
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import RevealSection from '@/components/ui/RevealSection.vue'
@@ -12,6 +12,7 @@ import AppButton from '@/components/ui/AppButton.vue'
 
 const router = useRouter()
 const auth = useAuthStore()
+const toast = useToast()
 
 const pickerOpen = ref(false)
 

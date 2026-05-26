@@ -6,15 +6,17 @@ import { useAuthStore } from '@/stores/auth.js'
 import { enrollmentService } from '@/services/enrollmentService.js'
 import { formatCurrency, formatDuration } from '@/utils/formatters.js'
 import { parseDRFError } from '@/utils/errors.js'
-import { toast } from 'vue-sonner'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import AppButton from '@/components/ui/AppButton.vue'
+import AppAlert from '@/components/ui/AppAlert.vue'
 import RevealSection from '@/components/ui/RevealSection.vue'
+import { useToast } from '@/composables/useToast.js'
 
 const route = useRoute()
 const router = useRouter()
 const store = useCoursesStore()
 const auth = useAuthStore()
+const toast = useToast()
 
 const DIFFICULTY_LABELS = { BEG: 'Iniciante', INT: 'Intermediário', ADV: 'Avançado' }
 
@@ -78,8 +80,10 @@ function totalLessons(course) {
     </div>
 
     <!-- ── Erro ── -->
-    <div v-else-if="store.error" class="flex flex-col items-center gap-4 py-24 text-center">
-      <p class="text-dm-navy-200">{{ store.error }}</p>
+    <div v-else-if="store.error" class="flex flex-col items-center gap-4 px-4 py-24">
+      <AppAlert variant="error" class="w-full max-w-md">
+        {{ store.error }}
+      </AppAlert>
       <AppButton @click="store.fetchCourse(route.params.id)">Tentar novamente</AppButton>
     </div>
 

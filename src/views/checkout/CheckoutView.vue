@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { loadStripe } from '@stripe/stripe-js'
-import { toast } from 'vue-sonner'
 
 import { paymentService } from '@/services/paymentService.js'
 import { enrollmentService } from '@/services/enrollmentService.js'
@@ -10,13 +9,16 @@ import { courseService } from '@/services/courseService.js'
 import { formatCents } from '@/utils/formatters.js'
 import { parseDRFError } from '@/utils/errors.js'
 import AppButton from '@/components/ui/AppButton.vue'
+import AppAlert from '@/components/ui/AppAlert.vue'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import { useTheme } from '@/composables/useTheme.js'
+import { useToast } from '@/composables/useToast.js'
 
 const route = useRoute()
 const router = useRouter()
 const courseId = Number(route.params.courseId)
 const { isDark } = useTheme()
+const toast = useToast()
 
 // — Estado da máquina de estados do checkout
 // loading | ready | processing | polling | timeout | error
@@ -210,26 +212,32 @@ onUnmounted(() => {
           <div class="mb-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/8 dark:bg-white/3">
             <p class="mb-4 text-sm font-medium text-slate-600 dark:text-dm-navy-200">Dados do cartão</p>
             <div id="stripe-card-element" class="rounded-lg border border-dm-navy-700 bg-white px-3 py-3" />
-            <p v-if="errorMessage" class="mt-3 text-sm text-red-400">{{ errorMessage }}</p>
+            <AppAlert v-if="errorMessage" variant="error" class="mt-3">
+              {{ errorMessage }}
+            </AppAlert>
           </div>
 
           <!-- Estado: processando pagamento -->
-          <div v-if="status === 'processing'" class="mb-4 flex items-center justify-center gap-3 rounded-lg bg-dm-gold/10 px-4 py-3 text-sm text-dm-gold">
-            <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            Processando pagamento...
-          </div>
+          <AppAlert v-if="status === 'processing'" variant="info" :icon="false" class="mb-4">
+            <div class="flex items-center justify-center gap-3">
+              <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Processando pagamento...
+            </div>
+          </AppAlert>
 
           <!-- Estado: aguardando matrícula (polling) -->
-          <div v-else-if="status === 'polling'" class="mb-4 flex items-center justify-center gap-3 rounded-lg bg-dm-gold/10 px-4 py-3 text-sm text-dm-gold">
-            <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            Confirmando sua matrícula... ({{ pollAttempt }}/{{ MAX_ATTEMPTS }})
-          </div>
+          <AppAlert v-else-if="status === 'polling'" variant="info" :icon="false" class="mb-4">
+            <div class="flex items-center justify-center gap-3">
+              <svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Confirmando sua matrícula... ({{ pollAttempt }}/{{ MAX_ATTEMPTS }})
+            </div>
+          </AppAlert>
 
           <AppButton
             type="button"
