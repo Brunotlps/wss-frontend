@@ -6,16 +6,17 @@ import { useAuthStore } from '@/stores/auth.js'
 import { enrollmentService } from '@/services/enrollmentService.js'
 import { formatCurrency, formatDuration } from '@/utils/formatters.js'
 import { parseDRFError } from '@/utils/errors.js'
-import { toast } from 'vue-sonner'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import AppAlert from '@/components/ui/AppAlert.vue'
 import RevealSection from '@/components/ui/RevealSection.vue'
+import { useToast } from '@/composables/useToast.js'
 
 const route = useRoute()
 const router = useRouter()
 const store = useCoursesStore()
 const auth = useAuthStore()
+const toast = useToast()
 
 const DIFFICULTY_LABELS = { BEG: 'Iniciante', INT: 'Intermediário', ADV: 'Avançado' }
 
