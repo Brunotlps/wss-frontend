@@ -21,12 +21,24 @@
           <div class="flex flex-col gap-3">
             <span class="text-xs font-semibold uppercase tracking-widest text-dm-gold">Plataforma</span>
             <RouterLink :to="{ name: 'course-list' }" class="text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white">Cursos</RouterLink>
-            <RouterLink :to="{ name: 'about' }" class="text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white">Sobre nós</RouterLink>
           </div>
           <div class="flex flex-col gap-3">
             <span class="text-xs font-semibold uppercase tracking-widest text-dm-gold">Conta</span>
             <RouterLink :to="{ name: 'login' }" class="text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white">Entrar</RouterLink>
             <RouterLink :to="{ name: 'register' }" class="text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white">Cadastrar</RouterLink>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span class="text-xs font-semibold uppercase tracking-widest text-dm-gold">Contato</span>
+            <a
+              href="https://wa.me/5500000000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white"
+            >WhatsApp</a>
+            <a
+              href="mailto:contato@duplaademilheiros.com"
+              class="text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white"
+            >E-mail</a>
           </div>
         </nav>
       </div>

@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCoursesStore } from '@/stores/courses.js'
 import { useAuthStore } from '@/stores/auth.js'
+import { useEnrollmentStore } from '@/stores/enrollment.js'
 import { enrollmentService } from '@/services/enrollmentService.js'
 import { formatCurrency, formatDuration } from '@/utils/formatters.js'
 import { parseDRFError } from '@/utils/errors.js'
@@ -16,15 +17,18 @@ const route = useRoute()
 const router = useRouter()
 const store = useCoursesStore()
 const auth = useAuthStore()
+const enrollmentStore = useEnrollmentStore()
 const toast = useToast()
 
 const DIFFICULTY_LABELS = { BEG: 'Iniciante', INT: 'Intermediário', ADV: 'Avançado' }
 
 const enrolling = ref(false)
 const isFree = computed(() => Number(store.currentCourse?.price) === 0)
+const userEnrollment = computed(() => enrollmentStore.getEnrollmentByCourseId(route.params.id))
 
 onMounted(() => {
   store.fetchCourse(route.params.id)
+  if (auth.isAuthenticated) enrollmentStore.fetchEnrollments()
 })
 
 function handleBuy() {
@@ -145,7 +149,14 @@ function totalLessons(course) {
                   </p>
                   <div class="mt-5">
                     <AppButton
-                      v-if="isFree"
+                      v-if="userEnrollment"
+                      full
+                      @click="router.push({ name: 'player', params: { enrollmentId: userEnrollment.id } })"
+                    >
+                      Continuar assistindo
+                    </AppButton>
+                    <AppButton
+                      v-else-if="isFree"
                       full
                       :loading="enrolling"
                       :disabled="enrolling"
@@ -269,7 +280,13 @@ function totalLessons(course) {
             {{ isFree ? 'Gratuito' : formatCurrency(store.currentCourse.price) }}
           </p>
           <AppButton
-            v-if="isFree"
+            v-if="userEnrollment"
+            @click="router.push({ name: 'player', params: { enrollmentId: userEnrollment.id } })"
+          >
+            Continuar assistindo
+          </AppButton>
+          <AppButton
+            v-else-if="isFree"
             :loading="enrolling"
             :disabled="enrolling"
             @click="handleEnroll"

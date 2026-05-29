@@ -1,5 +1,7 @@
 <script setup>
+import { computed } from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
+import { useEnrollmentStore } from '@/stores/enrollment.js'
 import { useRouter } from 'vue-router'
 import { formatCurrency } from '@/utils/formatters.js'
 
@@ -8,9 +10,16 @@ const props = defineProps({
 })
 
 const auth = useAuthStore()
+const enrollmentStore = useEnrollmentStore()
 const router = useRouter()
 
-function handleBuy() {
+const enrollment = computed(() => enrollmentStore.getEnrollmentByCourseId(props.course.id))
+
+function handleCTA() {
+  if (enrollment.value) {
+    router.push({ name: 'player', params: { enrollmentId: enrollment.value.id } })
+    return
+  }
   if (auth.isAuthenticated) {
     router.push({ name: 'checkout', params: { courseId: props.course.id } })
   } else {
@@ -56,10 +65,10 @@ function handleBuy() {
           {{ formatCurrency(course.price) }}
         </span>
         <button
-          class="rounded-full bg-dm-gold px-4 py-1.5 text-sm font-semibold text-dm-navy-900 shadow-sm shadow-dm-gold/20 transition-all hover:bg-dm-gold-400 hover:shadow-md"
-          @click="handleBuy"
+          class="rounded-full bg-dm-gold px-4 py-1.5 text-sm font-semibold text-dm-navy-900 shadow-sm shadow-dm-gold/20 transition-all hover:brightness-110 hover:shadow-md"
+          @click="handleCTA"
         >
-          Adquirir
+          {{ enrollment ? 'Continuar assistindo' : 'Adquirir' }}
         </button>
       </div>
     </div>

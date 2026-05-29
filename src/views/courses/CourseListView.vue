@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useCoursesStore } from '@/stores/courses.js'
+import { useEnrollmentStore } from '@/stores/enrollment.js'
+import { useAuthStore } from '@/stores/auth.js'
 import PageWrapper from '@/components/layout/PageWrapper.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import RevealSection from '@/components/ui/RevealSection.vue'
@@ -8,6 +10,8 @@ import CourseCard from '@/components/course/CourseCard.vue'
 import CourseCardSkeleton from '@/components/course/CourseCardSkeleton.vue'
 
 const store = useCoursesStore()
+const enrollmentStore = useEnrollmentStore()
+const auth = useAuthStore()
 
 const searchQuery = ref('')
 const difficultyFilter = ref('')
@@ -37,6 +41,7 @@ const filteredCourses = computed(() => {
 
 onMounted(() => {
   store.fetchCourses()
+  if (auth.isAuthenticated) enrollmentStore.fetchEnrollments()
 })
 </script>
 
