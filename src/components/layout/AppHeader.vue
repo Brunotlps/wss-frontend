@@ -16,8 +16,8 @@ const mobileOpen = ref(false)
 
 watch(() => route.path, () => { mobileOpen.value = false })
 
-function handleLogout() {
-  auth.logout()
+async function handleLogout() {
+  await auth.logout()
   mobileOpen.value = false
   router.push({ name: 'login' })
 }
