@@ -31,25 +31,6 @@
       <p class="mt-2 text-sm leading-relaxed text-slate-500 dark:text-dm-navy-200">
         Estamos construindo um espaço para você trocar experiências e estratégias com outros alunos.
       </p>
-
-      <!-- CTA — UI only, sem backend -->
-      <div class="mt-6">
-        <div class="flex overflow-hidden rounded-xl border border-slate-200 bg-white/80 dark:border-white/10 dark:bg-white/5">
-          <input
-            type="email"
-            placeholder="seu@email.com"
-            class="flex-1 bg-transparent px-4 py-2.5 text-sm text-dm-navy-900 placeholder-slate-400 outline-none dark:text-white dark:placeholder-dm-navy-300"
-          />
-          <button
-            class="shrink-0 rounded-r-xl bg-dm-gold px-4 py-2.5 text-sm font-semibold text-dm-navy-900 transition-all hover:brightness-110"
-          >
-            Avise-me
-          </button>
-        </div>
-        <p class="mt-2 text-xs text-slate-400 dark:text-dm-navy-300">
-          Seja o primeiro a saber quando lançarmos.
-        </p>
-      </div>
     </div>
   </div>
 </template>

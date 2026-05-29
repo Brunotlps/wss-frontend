@@ -12,10 +12,11 @@ defineProps({
       <!-- Author -->
       <div class="mb-4 flex items-center gap-3">
         <div
-          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold text-dm-navy-900"
-          :style="{ backgroundColor: post.author.color }"
+          class="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-xs font-bold text-dm-navy-900"
+          :style="post.author.avatar ? {} : { backgroundColor: post.author.color }"
         >
-          {{ post.author.initials }}
+          <img v-if="post.author.avatar" :src="post.author.avatar" :alt="post.author.name" class="h-full w-full object-cover" />
+          <span v-else>{{ post.author.initials }}</span>
         </div>
         <div class="min-w-0">
           <p class="text-sm font-semibold text-dm-navy-900 dark:text-white">{{ post.author.name }}</p>
