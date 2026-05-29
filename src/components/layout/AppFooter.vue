@@ -21,6 +21,10 @@
           <div class="flex flex-col gap-3">
             <span class="text-xs font-semibold uppercase tracking-widest text-dm-gold">Plataforma</span>
             <RouterLink :to="{ name: 'course-list' }" class="text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white">Cursos</RouterLink>
+            <RouterLink :to="{ name: 'community' }" class="flex items-center gap-2 text-slate-500 transition-colors hover:text-dm-navy-900 dark:text-dm-navy-200 dark:hover:text-white">
+              Comunidade
+              <span class="rounded-full bg-dm-gold/15 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-dm-gold">Em breve</span>
+            </RouterLink>
           </div>
           <div class="flex flex-col gap-3">
             <span class="text-xs font-semibold uppercase tracking-widest text-dm-gold">Conta</span>

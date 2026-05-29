@@ -54,6 +54,14 @@ function go(name) {
           Cursos
         </RouterLink>
         <RouterLink
+          :to="{ name: 'community' }"
+          class="flex items-center gap-1.5 text-sm font-medium text-dm-navy-100 transition-colors hover:text-dm-gold"
+          active-class="text-dm-gold"
+        >
+          Comunidade
+          <span class="rounded-full bg-dm-gold/15 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-dm-gold">Em breve</span>
+        </RouterLink>
+        <RouterLink
           :to="{ name: 'about' }"
           class="text-sm font-medium text-dm-navy-100 transition-colors hover:text-dm-gold"
           active-class="text-dm-gold"
@@ -196,6 +204,15 @@ function go(name) {
           active-class="text-dm-gold bg-white/5"
           @click="closeMobile"
         >Cursos</RouterLink>
+        <RouterLink
+          :to="{ name: 'community' }"
+          class="flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-medium text-dm-navy-100 transition-colors hover:bg-white/5 hover:text-dm-gold"
+          active-class="text-dm-gold bg-white/5"
+          @click="closeMobile"
+        >
+          Comunidade
+          <span class="rounded-full bg-dm-gold/15 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-dm-gold">Em breve</span>
+        </RouterLink>
         <RouterLink
           :to="{ name: 'about' }"
           class="rounded-xl px-4 py-2.5 text-sm font-medium text-dm-navy-100 transition-colors hover:bg-white/5 hover:text-dm-gold"
