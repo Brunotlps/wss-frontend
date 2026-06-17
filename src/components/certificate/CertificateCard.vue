@@ -1,7 +1,19 @@
 <script setup>
-defineProps({
+import { ref, computed } from 'vue'
+import { certificateService } from '@/services/certificateService.js'
+import { useToast } from '@/composables/useToast.js'
+
+const props = defineProps({
   certificate: { type: Object, required: true },
 })
+
+const toast = useToast()
+const downloading = ref(false)
+
+// PDF pode ainda não ter sido gerado (download_url === null) ou certificado revogado.
+const canDownload = computed(
+  () => props.certificate.is_valid && !!props.certificate.download_url,
+)
 
 function formatDate(isoString) {
   if (!isoString) return '—'
@@ -10,6 +22,33 @@ function formatDate(isoString) {
     month: 'long',
     year: 'numeric',
   }).format(new Date(isoString))
+}
+
+async function download() {
+  if (!canDownload.value || downloading.value) return
+  downloading.value = true
+  try {
+    const { data } = await certificateService.downloadCertificate(props.certificate.download_url)
+    const blobUrl = URL.createObjectURL(data)
+    const link = document.createElement('a')
+    link.href = blobUrl
+    link.download = `${props.certificate.certificate_code}.pdf`
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(blobUrl)
+  } catch (err) {
+    const status = err.response?.status
+    if (status === 403) {
+      toast.error('Você não tem permissão para baixar este certificado.')
+    } else if (status === 404) {
+      toast.error('Certificado ainda não disponível. Tente novamente em instantes.')
+    } else {
+      toast.error('Não foi possível baixar o certificado. Tente novamente.')
+    }
+  } finally {
+    downloading.value = false
+  }
 }
 </script>
 
@@ -54,17 +93,22 @@ function formatDate(isoString) {
     </div>
 
     <!-- Download -->
-    <a
-      :href="certificate.pdf_url"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="flex items-center justify-center gap-2 rounded-full bg-dm-gold px-4 py-2.5 text-sm font-semibold text-dm-navy-900 shadow-sm shadow-dm-gold/20 transition-all hover:bg-dm-gold-400 hover:shadow-md"
-      :class="{ 'pointer-events-none opacity-40': !certificate.is_valid }"
+    <button
+      type="button"
+      :disabled="!canDownload || downloading"
+      class="flex items-center justify-center gap-2 rounded-full bg-dm-gold px-4 py-2.5 text-sm font-semibold text-dm-navy-900 shadow-sm shadow-dm-gold/20 transition-all hover:bg-dm-gold-400 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-dm-gold disabled:hover:shadow-sm"
+      @click="download"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg v-if="downloading" class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+      </svg>
+      <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
-      Baixar certificado
-    </a>
+      <span v-if="downloading">Baixando…</span>
+      <span v-else-if="!certificate.download_url && certificate.is_valid">PDF em processamento</span>
+      <span v-else>Baixar certificado</span>
+    </button>
   </div>
 </template>
