@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { enrollmentService } from '@/services/enrollmentService.js'
 import { lessonService } from '@/services/lessonService.js'
+import { videoService } from '@/services/videoService.js'
 import { useVideoProgress } from '@/composables/useVideoProgress.js'
 import { parseDRFError } from '@/utils/errors.js'
 import LessonItem from '@/components/course/LessonItem.vue'
@@ -21,6 +22,23 @@ const lessonLoading = ref(false)
 const enrollment = ref(null)
 const lessons = ref([])
 const currentLesson = ref(null)
+
+// — Fonte resolvida do vídeo (preview direto ou URL assinada) + estado de acesso
+const videoSrc = ref(null)
+const videoError = ref(null) // forbidden | unavailable | error | null
+const pendingSeek = ref(0) // posição a retomar após troca de src (ex.: URL expirada)
+let streamRetried = false // re-fetch da URL assinada só uma vez por aula
+
+const videoErrorMessage = computed(() => {
+  switch (videoError.value) {
+    case 'forbidden':
+      return 'Você não tem acesso a esta aula. Matricule-se para assistir.'
+    case 'unavailable':
+      return 'Vídeo indisponível no momento.'
+    default:
+      return 'Não foi possível carregar o vídeo. Tente novamente.'
+  }
+})
 
 // — Refs do DOM
 const videoRef = ref(null)
@@ -55,13 +73,43 @@ const groupedSidebar = computed(() => {
 })
 
 // — Carregar detalhe de uma aula e inicializar progresso
+// — Mapeia o status do erro de stream-url para o estado de acesso
+function setVideoErrorFromStatus(status) {
+  videoError.value = status === 403 ? 'forbidden' : status === 404 ? 'unavailable' : 'error'
+}
+
 async function loadLesson(lessonId) {
   lessonLoading.value = true
   progress.destroy()
+  videoSrc.value = null
+  videoError.value = null
+  pendingSeek.value = 0
+  streamRetried = false
 
   try {
     const { data } = await lessonService.getLesson(lessonId)
     currentLesson.value = data
+
+    // Resolve a fonte do vídeo respeitando o gating de acesso do backend
+    const video = data.video
+    if (!video) {
+      videoError.value = 'unavailable'
+      return
+    }
+
+    if (data.is_free_preview) {
+      // Preview é público — stream_url toca direto, sem token
+      videoSrc.value = video.stream_url
+    } else {
+      // Aula protegida — pega URL assinada de curta duração (Bearer via interceptor)
+      try {
+        const { data: stream } = await videoService.getStreamUrl(video.id)
+        videoSrc.value = stream.url
+      } catch (err) {
+        setVideoErrorFromStatus(err.response?.status)
+        return
+      }
+    }
 
     await nextTick()
 
@@ -73,11 +121,39 @@ async function loadLesson(lessonId) {
   }
 }
 
+// — URL assinada expira (TTL 2h). Se o vídeo falhar, re-solicita uma vez e retoma a posição.
+async function handleVideoError() {
+  // Só re-tenta aulas protegidas: preview usa URL pública e não expira
+  if (!currentLesson.value || currentLesson.value.is_free_preview) return
+  // Ignora eventos espúrios (troca de aula zera o src) e estados de erro já resolvidos
+  if (!videoSrc.value || videoError.value) return
+
+  if (streamRetried) {
+    videoError.value = 'error'
+    return
+  }
+  streamRetried = true
+
+  const resumeFrom = videoRef.value?.currentTime || progress.resumeAt.value || 0
+  try {
+    const { data: stream } = await videoService.getStreamUrl(currentLesson.value.video.id)
+    pendingSeek.value = resumeFrom
+    videoSrc.value = stream.url
+    await nextTick()
+    videoRef.value?.load()
+  } catch (err) {
+    setVideoErrorFromStatus(err.response?.status)
+  }
+}
+
 // — Aplicar posição de retomada quando o vídeo carrega metadados
 function handleLoadedMetadata() {
-  if (progress.resumeAt.value > 0 && videoRef.value) {
-    videoRef.value.currentTime = progress.resumeAt.value
+  // pendingSeek tem prioridade: retomada após re-fetch de URL expirada
+  const seekTo = pendingSeek.value > 0 ? pendingSeek.value : progress.resumeAt.value
+  if (seekTo > 0 && videoRef.value) {
+    videoRef.value.currentTime = seekTo
   }
+  pendingSeek.value = 0
 }
 
 // — Ao terminar o vídeo: salvar conclusão e avançar automaticamente
@@ -183,15 +259,27 @@ onUnmounted(() => {
           </svg>
         </div>
 
+        <!-- Acesso negado / vídeo indisponível -->
+        <div
+          v-else-if="videoError"
+          class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black px-6 text-center"
+        >
+          <svg class="h-10 w-10 text-dm-gold/70" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <p class="max-w-sm text-sm text-white/80">{{ videoErrorMessage }}</p>
+        </div>
+
         <video
-          v-show="!lessonLoading && currentLesson"
+          v-show="!lessonLoading && !videoError && videoSrc"
           ref="videoRef"
           class="h-full w-full"
           controls
-          :src="currentLesson?.video?.file"
+          :src="videoSrc"
           @timeupdate="progress.onTimeUpdate"
           @ended="handleEnded"
           @loadedmetadata="handleLoadedMetadata"
+          @error="handleVideoError"
         />
       </div>
 
