@@ -11,12 +11,9 @@ function parseHash() {
 /**
  * Processa o retorno do login Google na rota /auth/callback.
  *
- * Suporta dois formatos no hash da URL:
- *  - novo  (Passo 2): `#code=<single-use>` → troca via POST /api/auth/google/exchange/
- *  - legado (Passo 1): `#access=<jwt>&refresh=<jwt>` → usa os tokens direto
- *
- * O branch legado só deve ser removido depois que o backend Passo 2 (callback
- * emitindo `#code=`) estiver em produção e validado.
+ * O backend (Passo 2) redireciona com `#code=<single-use>`, que é trocado por
+ * tokens via POST /api/auth/google/exchange/. O código expira em 60s, então a
+ * troca é feita imediatamente ao cair na rota.
  *
  * Dependências injetadas para facilitar teste (sem montar Pinia/router reais).
  */
@@ -28,23 +25,11 @@ export async function handleGoogleCallback({ auth, toast, router }) {
   clearHash()
 
   try {
-    let access
-    let refresh
-
     const code = params.get('code')
+    if (!code) throw new Error('missing_code')
 
-    if (code) {
-      // Fluxo novo: o código é single-use e expira em 60s — troca na hora.
-      const { data } = await authService.googleExchange(code)
-      access = data.access
-      refresh = data.refresh
-    } else if (params.get('access') && params.get('refresh')) {
-      // Fluxo legado (ainda emitido pelo backend hoje).
-      access = params.get('access')
-      refresh = params.get('refresh')
-    } else {
-      throw new Error('missing_tokens')
-    }
+    const { data } = await authService.googleExchange(code)
+    const { access, refresh } = data
 
     if (!access || !refresh) throw new Error('missing_tokens')
 
@@ -56,7 +41,7 @@ export async function handleGoogleCallback({ auth, toast, router }) {
     toast.success('Bem-vindo!')
     router.replace({ name: 'dashboard' })
   } catch {
-    // Falha no exchange (400/expirado/rede) ou hash sem code/tokens.
+    // Falha no exchange (400/expirado/rede) ou hash sem code.
     toast.error('Falha ao autenticar com Google. Tente novamente.')
     router.replace({ name: 'login' })
   }
