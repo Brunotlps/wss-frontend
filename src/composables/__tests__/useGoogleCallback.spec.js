@@ -60,20 +60,7 @@ describe('handleGoogleCallback', () => {
     expect(deps.toast.error).toHaveBeenCalled()
   })
 
-  it('fluxo legado: usa access/refresh do hash direto, sem chamar o exchange', async () => {
-    setHash('#access=legacy_a&refresh=legacy_r')
-    const deps = makeDeps()
-
-    await handleGoogleCallback(deps)
-
-    expect(authService.googleExchange).not.toHaveBeenCalled()
-    expect(localStorage.getItem(ACCESS_KEY)).toBe('legacy_a')
-    expect(localStorage.getItem(REFRESH_KEY)).toBe('legacy_r')
-    expect(window.location.hash).toBe('')
-    expect(deps.router.replace).toHaveBeenCalledWith({ name: 'dashboard' })
-  })
-
-  it('hash vazio: redireciona pro erro sem chamar exchange nem salvar tokens', async () => {
+  it('hash vazio (sem code): redireciona pro erro sem chamar exchange nem salvar tokens', async () => {
     setHash('')
     const deps = makeDeps()
 
