@@ -13,6 +13,11 @@ export const authService = {
     return api.post('/api/auth/token/refresh/', { refresh })
   },
 
+  // Troca o código single-use do callback Google por tokens JWT (endpoint público)
+  googleExchange(code) {
+    return api.post('/api/auth/google/exchange/', { code })
+  },
+
   logout(refresh) {
     return api.post('/api/auth/token/blacklist/', { refresh })
   },

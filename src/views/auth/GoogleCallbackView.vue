@@ -3,36 +3,13 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth.js'
 import { useToast } from '@/composables/useToast.js'
-import { ACCESS_KEY, REFRESH_KEY } from '@/services/api.js'
+import { handleGoogleCallback } from '@/composables/useGoogleCallback.js'
 
 const router = useRouter()
 const toast = useToast()
 const auth = useAuthStore()
 
-onMounted(async () => {
-  const hash = window.location.hash.slice(1)
-  const params = new URLSearchParams(hash)
-
-  const access = params.get('access')
-  const refresh = params.get('refresh')
-
-  // Remove os tokens da barra de endereço imediatamente
-  history.replaceState(null, '', window.location.pathname)
-
-  if (!access || !refresh) {
-    toast.error('Falha ao autenticar com Google. Tente novamente.')
-    router.replace({ name: 'login' })
-    return
-  }
-
-  localStorage.setItem(ACCESS_KEY, access)
-  localStorage.setItem(REFRESH_KEY, refresh)
-
-  await auth.initializeAuth()
-
-  toast.success('Bem-vindo!')
-  router.replace({ name: 'dashboard' })
-})
+onMounted(() => handleGoogleCallback({ auth, toast, router }))
 </script>
 
 <template>
