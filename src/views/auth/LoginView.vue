@@ -27,6 +27,9 @@ const { value: password, errorMessage: passwordError } = useField('password')
 const toast = useToast()
 const globalError = ref('')
 
+// URL de início do login Google — usa a mesma base do resto do app (env var).
+const googleLoginUrl = `${import.meta.env.VITE_API_BASE_URL}/api/auth/google/`
+
 const onSubmit = handleSubmit(async (values) => {
   globalError.value = ''
   try {
@@ -108,7 +111,7 @@ const onSubmit = handleSubmit(async (values) => {
 
       <!-- Botão Google -->
       <a
-        href="https://api.nousflow.com.br/api/auth/google/"
+        :href="googleLoginUrl"
         class="mt-4 flex w-full items-center justify-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-dm-navy-100 dark:hover:bg-white/8"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 flex-shrink-0">
