@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { certificateService } from '@/services/certificateService.js'
 import { useToast } from '@/composables/useToast.js'
+import { parseDRFError } from '@/utils/errors.js'
 
 const props = defineProps({
   certificate: { type: Object, required: true },
@@ -41,10 +42,12 @@ async function download() {
     const status = err.response?.status
     if (status === 403) {
       toast.error('Você não tem permissão para baixar este certificado.')
+    } else if (status === 410) {
+      toast.error('Este certificado foi revogado.')
     } else if (status === 404) {
       toast.error('Certificado ainda não disponível. Tente novamente em instantes.')
     } else {
-      toast.error('Não foi possível baixar o certificado. Tente novamente.')
+      toast.error(parseDRFError(err))
     }
   } finally {
     downloading.value = false
